@@ -1,0 +1,814 @@
+{
+  "form-options-cov-code": [
+    {
+      "id": "1000",
+      "code": "1000",
+      "name": "Crime"
+    },
+    {
+      "id": "1001",
+      "code": "1001",
+      "name": "Excess Crime"
+    },
+    {
+      "id": "1002",
+      "code": "1002",
+      "name": "Kidnap & Ransom"
+    },
+    {
+      "id": "1010",
+      "code": "1010",
+      "name": "Workplace Violence"
+    },
+    {
+      "id": "2000",
+      "code": "2000",
+      "name": "Commercial Property - Basic Form"
+    },
+    {
+      "id": "2001",
+      "code": "2001",
+      "name": "Commercial Property - Special Form/All Risk"
+    },
+    {
+      "id": "2002",
+      "code": "2002",
+      "name": "Commercial Property - Multi-Peril"
+    },
+    {
+      "id": "2003",
+      "code": "2003",
+      "name": "Individual Insureds With Large Schedules Where Tiv >$500M"
+    },
+    {
+      "id": "2010",
+      "code": "2010",
+      "name": "Builders Risk - Commercial"
+    },
+    {
+      "id": "2020",
+      "code": "2020",
+      "name": "Vacant Buildings - Commercial"
+    },
+    {
+      "id": "2030",
+      "code": "2030",
+      "name": "Business Income/Interruption"
+    },
+    {
+      "id": "2031",
+      "code": "2031",
+      "name": "Trade Name Restoration/Food Borne Illness"
+    },
+    {
+      "id": "2040",
+      "code": "2040",
+      "name": "Disaster Income Protection"
+    },
+    {
+      "id": "2100",
+      "code": "2100",
+      "name": "Stand Alone Earthquake With Limits <=$10M - Commercial Property"
+    },
+    {
+      "id": "2110",
+      "code": "2110",
+      "name": "Difference In Conditions With Limits <=$10M - Commercial Property"
+    },
+    {
+      "id": "2120",
+      "code": "2120",
+      "name": "Commercial Dic/Stand Alone Earthquake With Limits >$10M"
+    },
+    {
+      "id": "2130",
+      "code": "2130",
+      "name": "Parametric Earthquake"
+    },
+    {
+      "id": "2200",
+      "code": "2200",
+      "name": "Flood - Commercial"
+    },
+    {
+      "id": "2201",
+      "code": "2201",
+      "name": "Excess Flood - Commercial"
+    },
+    {
+      "id": "2202",
+      "code": "2202",
+      "name": "Flood & Landslide - Commercial"
+    },
+    {
+      "id": "2203",
+      "code": "2203",
+      "name": "Flood & Volcanic Eruption - Commercial"
+    },
+    {
+      "id": "2210",
+      "code": "2210",
+      "name": "Wind/Windstorm - Commercial"
+    },
+    {
+      "id": "2230",
+      "code": "2230",
+      "name": "Forced-Place Insurance"
+    },
+    {
+      "id": "2240",
+      "code": "2240",
+      "name": "Parametric Wildfire - Commercial"
+    },
+    {
+      "id": "2300",
+      "code": "2300",
+      "name": "Terrorism - Stand Alone"
+    },
+    {
+      "id": "2301",
+      "code": "2301",
+      "name": "Terrorism - Special Multi-Peril"
+    },
+    {
+      "id": "2400",
+      "code": "2400",
+      "name": "Glass"
+    },
+    {
+      "id": "2401",
+      "code": "2401",
+      "name": "Hay In The Open"
+    },
+    {
+      "id": "2402",
+      "code": "2402",
+      "name": "Sawmills"
+    },
+    {
+      "id": "2403",
+      "code": "2403",
+      "name": "Explosive Manufacturing/Sales/Storage"
+    },
+    {
+      "id": "2404",
+      "code": "2404",
+      "name": "Amusement Parks/Carnivals And Amusement Devices"
+    },
+    {
+      "id": "2600",
+      "code": "2600",
+      "name": "Dwelling"
+    },
+    {
+      "id": "2610",
+      "code": "2610",
+      "name": "Homeowners - Basic Form"
+    },
+    {
+      "id": "2611",
+      "code": "2611",
+      "name": "Homeowners - Multi-Peril"
+    },
+    {
+      "id": "2620",
+      "code": "2620",
+      "name": "Builders Risk - Personal"
+    },
+    {
+      "id": "2630",
+      "code": "2630",
+      "name": "Farmowners - Multi-Peril"
+    },
+    {
+      "id": "2640",
+      "code": "2640",
+      "name": "Vacant Buildings - Personal"
+    },
+    {
+      "id": "2700",
+      "code": "2700",
+      "name": "Residential Earthquake"
+    },
+    {
+      "id": "2710",
+      "code": "2710",
+      "name": "Homeowners Earthquake/Excess Limits Or Deductible Buyback"
+    },
+    {
+      "id": "2800",
+      "code": "2800",
+      "name": "Flood - Personal"
+    },
+    {
+      "id": "2801",
+      "code": "2801",
+      "name": "Excess Flood - Personal"
+    },
+    {
+      "id": "2802",
+      "code": "2802",
+      "name": "Flood & Landslide - Personal"
+    },
+    {
+      "id": "2803",
+      "code": "2803",
+      "name": "Flood & Volcanic Eruption - Personal"
+    },
+    {
+      "id": "2810",
+      "code": "2810",
+      "name": "Wind/Windstorm - Residential"
+    },
+    {
+      "id": "3000",
+      "code": "3000",
+      "name": "Bonds"
+    },
+    {
+      "id": "3001",
+      "code": "3001",
+      "name": "Fidelity"
+    },
+    {
+      "id": "3100",
+      "code": "3100",
+      "name": "Contract Liability"
+    },
+    {
+      "id": "3101",
+      "code": "3101",
+      "name": "Subguard"
+    },
+    {
+      "id": "3102",
+      "code": "3102",
+      "name": "Account Default"
+    },
+    {
+      "id": "3103",
+      "code": "3103",
+      "name": "Failure To Survive"
+    },
+    {
+      "id": "3104",
+      "code": "3104",
+      "name": "Trade Credit"
+    },
+    {
+      "id": "3105",
+      "code": "3105",
+      "name": "Oocyte/Egg Donor/Ivf/Surrogate Contract"
+    },
+    {
+      "id": "3106",
+      "code": "3106",
+      "name": "Mortgage Insurance"
+    },
+    {
+      "id": "3110",
+      "code": "3110",
+      "name": "Entertainment/Motion Pictures Contract"
+    },
+    {
+      "id": "3111",
+      "code": "3111",
+      "name": "Short Term Media/Entertainment Failure To Survive $5M+ (Film/Entertainment Productions)"
+    },
+    {
+      "id": "3120",
+      "code": "3120",
+      "name": "Prize Indemnification (Excluding Hole-In-One Coverage)"
+    },
+    {
+      "id": "3121",
+      "code": "3121",
+      "name": "Hole In One"
+    },
+    {
+      "id": "4000",
+      "code": "4000",
+      "name": "Inland Marine"
+    },
+    {
+      "id": "4001",
+      "code": "4001",
+      "name": "Track Insurance"
+    },
+    {
+      "id": "4010",
+      "code": "4010",
+      "name": "Motor Truck Cargo"
+    },
+    {
+      "id": "4011",
+      "code": "4011",
+      "name": "Excess Motor Truck Cargo"
+    },
+    {
+      "id": "4020",
+      "code": "4020",
+      "name": "Jeweler'S Block"
+    },
+    {
+      "id": "4030",
+      "code": "4030",
+      "name": "Boiler & Machinery"
+    },
+    {
+      "id": "4100",
+      "code": "4100",
+      "name": "Personal Articles Floater Broad"
+    },
+    {
+      "id": "4101",
+      "code": "4101",
+      "name": "Personal Articles Floaters Written On A Stand Alone Basis - Value Of The Schedule > $1M Or Contains A Single Item(S) >$100K"
+    },
+    {
+      "id": "5000",
+      "code": "5000",
+      "name": "General Liability"
+    },
+    {
+      "id": "5010",
+      "code": "5010",
+      "name": "Excess Liability (Incl. Umbrella)"
+    },
+    {
+      "id": "5011",
+      "code": "5011",
+      "name": "Excess Liability Where Part Of Underlying Is Non-Admitted"
+    },
+    {
+      "id": "5012",
+      "code": "5012",
+      "name": "Limits That Attach In Excess Of $150M"
+    },
+    {
+      "id": "5013",
+      "code": "5013",
+      "name": "Asset Protection"
+    },
+    {
+      "id": "5020",
+      "code": "5020",
+      "name": "Short Term Special Events (Excluding Hole-In-One)"
+    },
+    {
+      "id": "5021",
+      "code": "5021",
+      "name": "Event Cancellation"
+    },
+    {
+      "id": "5100",
+      "code": "5100",
+      "name": "Gen. Liability - Product Tampering"
+    },
+    {
+      "id": "5101",
+      "code": "5101",
+      "name": "Products/Completed Operations (Written On A Stand Alone Basis)"
+    },
+    {
+      "id": "5102",
+      "code": "5102",
+      "name": "Products Recall"
+    },
+    {
+      "id": "5103",
+      "code": "5103",
+      "name": "Clinical And Similar Tests Of Pharmaceutical, Medical, Biological & Other Similar Products"
+    },
+    {
+      "id": "5200",
+      "code": "5200",
+      "name": "Contractors Engaged In Construction Of New Tract Homes And/Or New Condominiums"
+    },
+    {
+      "id": "5201",
+      "code": "5201",
+      "name": "Scaffold/Scaffold Contractor"
+    },
+    {
+      "id": "5202",
+      "code": "5202",
+      "name": "Crane & Rigging Contractors"
+    },
+    {
+      "id": "5203",
+      "code": "5203",
+      "name": "Blasting Contractors"
+    },
+    {
+      "id": "5204",
+      "code": "5204",
+      "name": "Demolition Contractors"
+    },
+    {
+      "id": "5205",
+      "code": "5205",
+      "name": "Oilfield Contractors"
+    },
+    {
+      "id": "5300",
+      "code": "5300",
+      "name": "Building Moving"
+    },
+    {
+      "id": "5301",
+      "code": "5301",
+      "name": "Security Guard Services"
+    },
+    {
+      "id": "5302",
+      "code": "5302",
+      "name": "Tattoo And Body Piercing Shops"
+    },
+    {
+      "id": "5303",
+      "code": "5303",
+      "name": "Amusement Parks/Carnivals/Devices"
+    },
+    {
+      "id": "5304",
+      "code": "5304",
+      "name": "Fireworks Displays"
+    },
+    {
+      "id": "5305",
+      "code": "5305",
+      "name": "Hot Air Balloon"
+    },
+    {
+      "id": "5306",
+      "code": "5306",
+      "name": "Outfitters And Guides"
+    },
+    {
+      "id": "5307",
+      "code": "5307",
+      "name": "Seasonal Or Mobile Fairs, Concessionaires, And Vendors, With Or Without Liquor Liability"
+    },
+    {
+      "id": "5308",
+      "code": "5308",
+      "name": "Ambulance Services Including Professional Liability"
+    },
+    {
+      "id": "5309",
+      "code": "5309",
+      "name": "Explosives Including Manufacturing/Sales/Storage"
+    },
+    {
+      "id": "5400",
+      "code": "5400",
+      "name": "Liquor Liability"
+    },
+    {
+      "id": "5401",
+      "code": "5401",
+      "name": "Wildfire Liability"
+    },
+    {
+      "id": "5402",
+      "code": "5402",
+      "name": "Animal Liability"
+    },
+    {
+      "id": "5410",
+      "code": "5410",
+      "name": "Environmental Impairment Remediation And Pollution Liability"
+    },
+    {
+      "id": "5500",
+      "code": "5500",
+      "name": "Foster Family (Occurrence Based Only)"
+    },
+    {
+      "id": "5915",
+      "code": "5915",
+      "name": "Excess Liability - Cyber - Where Part Of The Underlying Is Non-Admitted"
+    },
+    {
+      "id": "6000",
+      "code": "6000",
+      "name": "Errors & Omissions"
+    },
+    {
+      "id": "6001",
+      "code": "6001",
+      "name": "Media Liability"
+    },
+    {
+      "id": "6010",
+      "code": "6010",
+      "name": "Directors & Officers"
+    },
+    {
+      "id": "6020",
+      "code": "6020",
+      "name": "Employment Practices Liability"
+    },
+    {
+      "id": "6021",
+      "code": "6021",
+      "name": "Sexual Misconduct"
+    },
+    {
+      "id": "6030",
+      "code": "6030",
+      "name": "Representations & Warranties"
+    },
+    {
+      "id": "6031",
+      "code": "6031",
+      "name": "Excess Representations & Warranties"
+    },
+    {
+      "id": "6040",
+      "code": "6040",
+      "name": "Patent/Trademark/Copyright Infringement"
+    },
+    {
+      "id": "6100",
+      "code": "6100",
+      "name": "Architects & Engineers/Condo Coverage Only"
+    },
+    {
+      "id": "6101",
+      "code": "6101",
+      "name": "Tattoo & Body Piercing Shops E&O"
+    },
+    {
+      "id": "6200",
+      "code": "6200",
+      "name": "Cyber Liability"
+    },
+    {
+      "id": "6201",
+      "code": "6201",
+      "name": "Cyber Cargo"
+    },
+    {
+      "id": "6202",
+      "code": "6202",
+      "name": "Excess Cyber - Professional Liabilty/Errors & Omission"
+    },
+    {
+      "id": "6210",
+      "code": "6210",
+      "name": "Cyber Multi-Peril"
+    },
+    {
+      "id": "6300",
+      "code": "6300",
+      "name": "Medical Malpractice"
+    },
+    {
+      "id": "6301",
+      "code": "6301",
+      "name": "Medical Malpractice - Hospitals"
+    },
+    {
+      "id": "6310",
+      "code": "6310",
+      "name": "Physician/Medical Group/Hospital Billing E&O"
+    },
+    {
+      "id": "6400",
+      "code": "6400",
+      "name": "Campaign Treasurers"
+    },
+    {
+      "id": "6401",
+      "code": "6401",
+      "name": "Creditors' Committees"
+    },
+    {
+      "id": "7000",
+      "code": "7000",
+      "name": "Accident"
+    },
+    {
+      "id": "7001",
+      "code": "7001",
+      "name": "Accident - Disability Income"
+    },
+    {
+      "id": "7002",
+      "code": "7002",
+      "name": "Accident - Group Health Insurance"
+    },
+    {
+      "id": "7003",
+      "code": "7003",
+      "name": "Accident - Indiviudal Health Ins."
+    },
+    {
+      "id": "7005",
+      "code": "7005",
+      "name": "International Major Medical"
+    },
+    {
+      "id": "7006",
+      "code": "7006",
+      "name": "High Limits Disability"
+    },
+    {
+      "id": "7007",
+      "code": "7007",
+      "name": "Bridge Plan"
+    },
+    {
+      "id": "8000",
+      "code": "8000",
+      "name": "Auto Liability - Commercial"
+    },
+    {
+      "id": "8010",
+      "code": "8010",
+      "name": "Auto Physical Damage - Commercial"
+    },
+    {
+      "id": "8020",
+      "code": "8020",
+      "name": "Combined Auto Liability & P.D. - Comm"
+    },
+    {
+      "id": "8030",
+      "code": "8030",
+      "name": "Garage Liability"
+    },
+    {
+      "id": "8040",
+      "code": "8040",
+      "name": "Combined Trucking Liability & P.D."
+    },
+    {
+      "id": "8100",
+      "code": "8100",
+      "name": "Auto Liability - Private"
+    },
+    {
+      "id": "8101",
+      "code": "8101",
+      "name": "Exotic/Classic/Antique Autos With A Value >100K"
+    },
+    {
+      "id": "8110",
+      "code": "8110",
+      "name": "Auto Physical Damage -Private"
+    },
+    {
+      "id": "8120",
+      "code": "8120",
+      "name": "Combined Auto Liability & P.D. - Private"
+    },
+    {
+      "id": "8200",
+      "code": "8200",
+      "name": "Any Vessel/With A Max Speed > 55 Mph"
+    },
+    {
+      "id": "8201",
+      "code": "8201",
+      "name": "All Vessels >30 Feet And Rated Max Speed Of 45 Mph"
+    },
+    {
+      "id": "8300",
+      "code": "8300",
+      "name": "Short Term Media/Entertainment Railroad Protective Liability (Film/Entertainment Productions)"
+    },
+    {
+      "id": "8400",
+      "code": "8400",
+      "name": "Aviation Liability"
+    },
+    {
+      "id": "8401",
+      "code": "8401",
+      "name": "Aviation Excess Liability"
+    },
+    {
+      "id": "8402",
+      "code": "8402",
+      "name": "Short Term Media/Entertainment Non-Owned Contingent Aircraft Liability (Film/Entertainment Productions)"
+    },
+    {
+      "id": "8500",
+      "code": "8500",
+      "name": "Drone Third-Party Liability"
+    },
+    {
+      "id": "8501",
+      "code": "8501",
+      "name": "Drone Physical Damage Or Loss"
+    },
+    {
+      "id": "8502",
+      "code": "8502",
+      "name": "Drone Commercial Third-Party Liability And Optional Physical Damage"
+    },
+    {
+      "id": "9000",
+      "code": "9000",
+      "name": "Legal Expense Reimbursement"
+    }
+  ],
+  "user-forms": [
+    {
+      "id": "2f1c",
+      "agentName": "This is a test",
+      "agentNbr": "8686896",
+      "agencyName": "rthrtrtju",
+      "agencyNbr": "85765",
+      "nameInsured": "Balthazar",
+      "descriptionRisk": "Homeowners",
+      "coverageCode": "1000 Crime",
+      "insurer1": "21st Century Insurance Company",
+      "contactedThrough1": "online",
+      "fullContactName1": "Igor Gomes Leandro1",
+      "emailPhone1": "emaiul1",
+      "website1": "website1",
+      "naic1": "NACI1",
+      "date1": "2025-06",
+      "insurer2": "Accredited Surety and Casualty Company, Inc.",
+      "contactedThrough2": "email-phone",
+      "fullContactName2": "Igor Gomes Leandro2",
+      "emailPhone2": "email2",
+      "website2": "web2",
+      "naic2": "Naic2",
+      "date2": "2025-11",
+      "insurer3": "21st Century Insurance Company",
+      "contactedThrough3": "online",
+      "fullContactName3": "Igor Gomes Leandro3",
+      "emailPhone3": "email3",
+      "website3": "web3",
+      "naic3": "Naic3",
+      "date3": "2025-12"
+    },
+    {
+      "id": "34a3",
+      "agentName": "",
+      "agentNbr": "",
+      "agencyName": "",
+      "agencyNbr": "",
+      "nameInsured": "",
+      "descriptionRisk": "",
+      "coverageCode": "",
+      "insurer1": "",
+      "contactedThrough1": "",
+      "fullContactName1": "",
+      "emailPhone1": "",
+      "website1": "",
+      "naic1": "",
+      "date1": "",
+      "insurer2": "",
+      "contactedThrough2": "",
+      "fullContactName2": "",
+      "emailPhone2": "",
+      "website2": "",
+      "naic2": "",
+      "date2": "",
+      "insurer3": "",
+      "contactedThrough3": "",
+      "fullContactName3": "",
+      "emailPhone3": "",
+      "website3": "",
+      "naic3": "",
+      "date3": ""
+    },
+    {
+      "id": "1d03",
+      "agentName": "",
+      "agentNbr": "",
+      "agencyName": "",
+      "agencyNbr": "",
+      "nameInsured": "",
+      "descriptionRisk": "",
+      "coverageCode": "",
+      "insurer1": "",
+      "contactedThrough1": "",
+      "fullContactName1": "",
+      "emailPhone1": "",
+      "website1": "",
+      "naic1": "",
+      "date1": "",
+      "insurer2": "",
+      "contactedThrough2": "",
+      "fullContactName2": "",
+      "emailPhone2": "",
+      "website2": "",
+      "naic2": "",
+      "date2": "",
+      "insurer3": "",
+      "contactedThrough3": "",
+      "fullContactName3": "",
+      "emailPhone3": "",
+      "website3": "",
+      "naic3": "",
+      "date3": ""
+    }
+  ]
+}
