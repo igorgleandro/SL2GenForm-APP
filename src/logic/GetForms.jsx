@@ -1,14 +1,12 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import CircularProgress from "@mui/material/CircularProgress";
-import Divider from "@mui/material/Divider";
+import { Box,Button,Typography,Table,TableBody,TableCell,TableContainer,TableHead,TableRow, Paper, Dialog, DialogTitle, DialogContent, DialogActions, Divider,} from "@mui/material";
 
 export default function GetForms() {
     const [forms, setForms] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState("");
+
+    const [selectedForm, setSelectedForm] = React.useState(null);
 
     const fetchForms = async () => {
         setLoading(true);
@@ -31,101 +29,107 @@ export default function GetForms() {
 
     return (
         <Box sx={{ p: 2 }}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
-                <Typography variant="h6">Saved Forms</Typography>
+            <Box
+                sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2, justifyContent: "center" }}
+            >
+                <Typography variant="h4">My Forms</Typography>
                 <Button variant="outlined" onClick={fetchForms}>
                     Refresh
                 </Button>
             </Box>
 
             {loading && (
-                <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-                    <CircularProgress size={20} /> <span>Loading…</span>
-                </Box>
+                <Typography textAlign="center" color="text.secondary">
+                    Loading…
+                </Typography>
             )}
 
             {error && (
-                <Typography color="error" sx={{ mb: 2 }}>
+                <Typography color="error" textAlign="center" sx={{ mb: 2 }}>
                     {error}
                 </Typography>
             )}
 
             {!loading && !error && forms.length === 0 && (
-                <Typography color="text.secondary">No forms yet.</Typography>
+                <Typography color="text.secondary" textAlign="center">
+                    No forms yet.
+                </Typography>
             )}
 
-            {!loading &&
-                !error &&
-                forms.map((f, idx) => (
-                    <Box
-                        key={f.id ?? idx}
-                        sx={{
-                            p: 2,
-                            mb: 2,
-                            border: "1px solid",
-                            borderColor: "divider",
-                            borderRadius: 2,
-                        }}
-                    >
-                        <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
-                            {f.nameInsured || "Unnamed"} — {f.coverageCode || "No Coverage"}
-                        </Typography>
+            {!loading && !error && forms.length > 0 && (
+                <TableContainer component={Paper} sx={{ maxWidth: 1000, margin: "0 auto" }}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell><strong>Name Insured</strong></TableCell>
+                                <TableCell><strong>Coverage Code</strong></TableCell>
+                                <TableCell><strong>Agent Name</strong></TableCell>
+                                <TableCell><strong>Agency</strong></TableCell>
+                                <TableCell><strong>Actions</strong></TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {forms.map((f, idx) => (
+                                <TableRow key={f.id ?? idx}>
+                                    <TableCell>{f.nameInsured || "—"}</TableCell>
+                                    <TableCell>{f.coverageCode || "—"}</TableCell>
+                                    <TableCell>{f.agentName || "—"}</TableCell>
+                                    <TableCell>{f.agencyName || "—"}</TableCell>
+                                    <TableCell>
+                                        <Button
+                                            variant="outlined"
+                                            size="small"
+                                            onClick={() => setSelectedForm(f)}
+                                        >
+                                            View
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            )}
 
-                        <Box
-                            sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1 }}
-                        >
-                            <Item label="Agent Name" value={f.agentName} />
-                            <Item label="Agent Nbr" value={f.agentNbr} />
-                            <Item label="Agency Name" value={f.agencyName} />
-                            <Item label="Agency Nbr" value={f.agencyNbr} />
-                            <Item label="Description Risk" value={f.descriptionRisk} />
-                            <Item label="Coverage Code" value={f.coverageCode} />
+            {/* Dialog for full details */}
+            <Dialog
+                open={Boolean(selectedForm)}
+                onClose={() => setSelectedForm(null)}
+                maxWidth="md"
+                fullWidth
+            >
+                <DialogTitle>Form Details</DialogTitle>
+                <DialogContent dividers>
+                    {selectedForm && (
+                        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                            <Typography><strong>Agent:</strong> {selectedForm.agentName} ({selectedForm.agentNbr})</Typography>
+                            <Typography><strong>Agency:</strong> {selectedForm.agencyName} ({selectedForm.agencyNbr})</Typography>
+                            <Typography><strong>Name Insured:</strong> {selectedForm.nameInsured}</Typography>
+                            <Typography><strong>Description Risk:</strong> {selectedForm.descriptionRisk}</Typography>
+                            <Typography><strong>Coverage Code:</strong> {selectedForm.coverageCode}</Typography>
+
+                            <Divider />
+                            <Typography variant="h6">Insurers</Typography>
+                            {[1, 2, 3].map((i) => (
+                                <Box key={i} sx={{ mb: 2 }}>
+                                    <Typography><strong>Insurer {i}:</strong> {selectedForm[`insurer${i}`] || "—"}</Typography>
+                                    <Typography><strong>Contacted Through:</strong> {selectedForm[`contactedThrough${i}`] || "—"}</Typography>
+                                    <Typography><strong>Full Contact:</strong> {selectedForm[`fullContactName${i}`] || "—"}</Typography>
+                                    <Typography><strong>Email/Phone:</strong> {selectedForm[`emailPhone${i}`] || "—"}</Typography>
+                                    <Typography><strong>Website:</strong> {selectedForm[`website${i}`] || "—"}</Typography>
+                                    <Typography><strong>NAIC:</strong> {selectedForm[`naic${i}`] || "—"}</Typography>
+                                    <Typography><strong>Date:</strong> {selectedForm[`date${i}`] || "—"}</Typography>
+                                </Box>
+                            ))}
                         </Box>
+                    )}
+                </DialogContent>
 
-                        <Divider sx={{ my: 1.5 }} />
+                <DialogActions>
+                    <Button onClick={() => setSelectedForm(null)}>Close</Button>
+                </DialogActions>
 
-                        <Typography variant="body2" sx={{ fontWeight: 600, mb: 1 }}>
-                            Insurers
-                        </Typography>
-
-                        <InsurerBlock idx={1} f={f} />
-                        <InsurerBlock idx={2} f={f} />
-                        <InsurerBlock idx={3} f={f} />
-                    </Box>
-                ))}
-        </Box>
-    );
-}
-
-function Item({ label, value }) {
-    return (
-        <Box>
-            <Typography variant="caption" color="text.secondary">
-                {label}
-            </Typography>
-            <Typography variant="body2">{value || "—"}</Typography>
-        </Box>
-    );
-}
-
-function InsurerBlock({ idx, f }) {
-    const prefix = (k) => f[`${k}${idx}`];
-    return (
-        <Box
-            sx={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: 1,
-                mb: 1,
-            }}
-        >
-            <Item label={`Insurer ${idx}`} value={prefix("insurer")} />
-            <Item label="Contacted Through" value={prefix("contactedThrough")} />
-            <Item label="Contact Name" value={prefix("fullContactName")} />
-            <Item label="Email/Phone" value={prefix("emailPhone")} />
-            <Item label="Website" value={prefix("website")} />
-            <Item label="NAIC" value={prefix("naic")} />
-            <Item label="Date" value={prefix("date")} />
+            </Dialog>
         </Box>
     );
 }
