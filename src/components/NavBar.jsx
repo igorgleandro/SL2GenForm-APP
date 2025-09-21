@@ -16,6 +16,7 @@ import { NavLink } from 'react-router-dom';
 
 const navItems = [
     { path: '/', name: 'Home' },
+    { path: '/myforms', name: 'MyForms' },
     { path: '/about', name: 'About' },
     { path: '/contact', name: 'Contact' },
 ];

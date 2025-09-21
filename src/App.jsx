@@ -13,7 +13,7 @@ import Box from '@mui/material/Box';
 import { useContext } from "react";
 import { FormContext } from "./providers/FormProvider";
 import SubmitButton from "./logic/SubmitButton";
-import {Card} from "@mui/material";
+import SL2FormImg from "./assets/Images/Sl2FormImg.png";
 
 //Preview Import
 import Drawer from "@mui/material/Drawer";
@@ -22,6 +22,7 @@ import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import CloseIcon from "@mui/icons-material/Close";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import GetForms from "./logic/GetForms.jsx";
 
 
 
@@ -77,7 +78,7 @@ const App = () => {
 
 
     const handleConfirm = () => setShowConfirm(true)
-    const handleResetConfirm = () => setShowConfirm(false)
+    const handleCloseConfirm = () => setShowConfirm(false)
 
 const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
 
@@ -85,60 +86,72 @@ const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
     
     <Box className="fixed inset-0 flex items-center justify-center backdrop-blur-sm">
 
-      <Box className="bg-white p-10 rounded-4xl shadow-lg max-w-4xl w-full">
 
-          <Card variant="outlined">
+
+      <Box className="bg-white p-10 rounded-4xl shadow-lg max-w-4xl w-full">
+          <Typography variant="h5" sx={{ color: "#dc2626" , mb:2}}>Review</Typography>
+          <Box sx={{mb:4}} >
             <p><strong>Agent Name:</strong> {form1.agentName}</p>
             <p><strong>Agent Nbr:</strong> {String(form1.agentNbr)}</p>
             <p><strong>Agency Name:</strong> {form1.agencyName}</p>
             <p><strong>Agency Nbr:</strong> {String(form1.agencyNbr)}</p>
+            <br></br>
             <p><strong>Name of Insured:</strong> {form2.nameInsured}</p>
             <p><strong>Description Risk:</strong> {String(form2.descriptionRisk)}</p>
             <p><strong>Coverage Code</strong> {form2.coverageCode}</p>
-          </Card>
+          </Box>
       
             <Box sx={{ p: 2,borderRadius: 2,boxShadow: 2,bgcolor: "background.paper",display: "flex", gap: 4,
-    alignItems: "flex-start",   
+    alignItems: "flex-start", mb:2,
   }}>
-              <Box>
+              <Box sx={{mb:2}}>
               <Typography variant="h6" gutterBottom>Insurer 1</Typography>
-              <p>Insurer: {form3a.insurer1}</p>
-              <p>Contacted Through: {form3a.contactedThrough1}</p>
-              <p>Full Contact Name: {form3a.fullContactName1}</p>
-              <p>Phone Number / Email: {form3a.emailPhone1}</p>
-              <p>Website: {form3a.website1}</p>
-              <p>NAIC: {form3a.naic1}</p>
-              <p>Date: {form3a.date1}</p>
+              <p><strong>Insurer:</strong> {form3a.insurer1}</p>
+              <p><strong>Contacted Through:</strong> {form3a.contactedThrough1}</p>
+              <p><strong>Full Contact Name: </strong>{form3a.fullContactName1}</p>
+              <p><strong>Phone Number / Email:</strong> {form3a.emailPhone1}</p>
+              <p><strong>Website:</strong> {form3a.website1}</p>
+              <p><strong>NAIC:</strong> {form3a.naic1}</p>
+              <p><strong>Date:</strong> {form3a.date1}</p>
               </Box>
               <Box>
               <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>Insurer 2</Typography>
-              <p>Insurer: {form3b.insurer2}</p>
-              <p>Contacted Through: {form3b.contactedThrough2}</p>
-              <p>Full Contact Name: {form3b.fullContactName2}</p>
-              <p>Phone Number / Email: {form3b.emailPhone2}</p>
-              <p>Website: {form3b.website2}</p>
-              <p>NAIC: {form3b.naic2}</p>
-              <p>Date: {form3b.date2}</p>
+              <p><strong>Insurer:</strong> {form3b.insurer2}</p>
+              <p><strong>Contacted Through:</strong> {form3b.contactedThrough2}</p>
+              <p><strong>Full Contact Name:</strong> {form3b.fullContactName2}</p>
+              <p><strong>Phone Number / Email:</strong> {form3b.emailPhone2}</p>
+              <p><strong>Website:</strong> {form3b.website2}</p>
+              <p><strong>NAIC:</strong> {form3b.naic2}</p>
+              <p><strong>Date:</strong> {form3b.date2}</p>
               </Box>
               <Box>
               <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>Insurer 3</Typography>
-              <p>Insurer: {form3c.insurer3}</p>
-              <p>Contacted Through: {form3c.contactedThrough3}</p>
-              <p>Full Contact Name: {form3c.fullContactName3}</p>
-              <p>Phone Number / Email: {form3c.emailPhone3}</p>
-              <p>Website: {form3c.website3}</p>
-              <p>NAIC: {form3c.naic3}</p>
-              <p>Date: {form3c.date3}</p>
+              <p><strong>Insurer:</strong> {form3c.insurer3}</p>
+              <p><strong>Contacted Through:</strong> {form3c.contactedThrough3}</p>
+              <p><strong>Full Contact Name:</strong> {form3c.fullContactName3}</p>
+              <p><strong>Phone Number / Email:</strong> {form3c.emailPhone3}</p>
+              <p><strong>Website:</strong> {form3c.website3}</p>
+              <p><strong>NAIC: </strong>{form3c.naic3}</p>
+              <p><strong>Date:</strong> {form3c.date3}</p>
               </Box>
             </Box>
 
-          <SubmitButton />
-      
-          <ColorButtons
-          color={'red'}
-          text={'Reset Input'}
-          func= {handleResetConfirm}
-        />
+          <Box
+              sx={{
+                  display: "flex",
+                  gap: 2,             // spacing between buttons
+                  width: "100%",      // optional, so they expand to full row
+              }}
+          >
+              <SubmitButton />
+
+              <ColorButtons
+                  color="blue"
+                  text="Close"
+                  func={handleCloseConfirm}
+
+              />
+          </Box>
     </Box>
     </Box>,
     document.body 
@@ -155,7 +168,7 @@ const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
     const PreviewPanel = () => (
         <Box sx={{ width: 380, p: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 1 }}>
-                <Typography variant="h6" fontWeight={700}>Preview</Typography>
+                <Typography variant="h6" fontWeight={700}>Live Preview</Typography>
                 <IconButton onClick={closeDrawer}><CloseIcon /></IconButton>
             </Box>
             <Divider sx={{ mb: 2 }} />
@@ -209,13 +222,19 @@ const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
             <Divider sx={{ my: 2 }} />
 
             <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
-                <SubmitButton />
+                <ColorButtons color="green" text="Confirm Input" func={handleConfirm} />
 
                 <ColorButtons
                     color={'red'}
                     text={'Reset Input'}
-                    func= {handleResetConfirm}
+                    func= {handleCloseConfirm}
                 />
+
+                <ColorButtons
+                    color={'blue'}
+                    text={'Close Preview'}
+                    func={closeDrawer}/>
+
             </Box>
         </Box>
     );
@@ -228,7 +247,13 @@ const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
                 <div className="grid grid-cols-2 w-full max-w-6xl">
 
                     {/* LEFT COLUMN */}
-                    <div className="bg-white p-2">
+                    <Box sx={{
+                        justifyContent: "center",
+                        alignItems: "center",
+                        padding: 1,
+
+
+                    }} className="bg-white p-2">
                         {/* Form 1 */}
                         <div className="grid grid-cols-2 gap-4">
                             {Object.values(form1InputList).map(
@@ -267,11 +292,20 @@ const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
                         <br/>
                         <Divider sx={{ mb: 2 }} />
 
-                    </div>
+                    </Box>
+                    {/* Right Box */}
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            padding: 1,
 
-                    <div>
-                        Create Something here!
-                    </div>
+
+                        }}
+                    >
+                        <img src={SL2FormImg} alt="SL2 Form Image" style={{ width: "auto", height: "auto" }} />
+                    </Box>
 
                 </div>
 
@@ -331,15 +365,11 @@ const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
 
                 <div className="flex flex-row gap-4">
                     <ColorButtons color="green" text="Confirm Input" func={handleConfirm} />
-                    <ColorButtons color="red" text="Reset Input" func={handleResetConfirm} />
-                    <Button
-                        variant="outlined"
-                        startIcon={<VisibilityIcon />}
-                        onClick={openDrawer}
-                    >
-                        Open Preview
-                    </Button>
+                    <ColorButtons color="red" text="Reset Input" func={handleCloseConfirm} />
+                    <ColorButtons color="blue" text="Open Preview" func={openDrawer} />
                 </div>
+
+
 
 
 
@@ -359,10 +389,9 @@ const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
 
 
             <Drawer
+                variant="persistent"
                 anchor="right"
                 open={openPreview}
-                onClose={closeDrawer}
-                ModalProps={{ keepMounted: true }}
                 PaperProps={{ sx: { width: { xs: '90vw', sm: 420 } } }}
             >
                 <PreviewPanel />

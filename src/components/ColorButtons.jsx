@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 export default function ColorButtons({ text, color, func }) {
   let buttonElement;
@@ -16,11 +17,19 @@ export default function ColorButtons({ text, color, func }) {
 
     case "red":
       buttonElement = (
-        <Button variant="outlined" color="error" onClick={func}>
+        <Button variant="contained" color="error" onClick={func}>
           {text}
         </Button>
       );
       break;
+
+           case "blue":
+              buttonElement = (
+                  <Button variant="outlined" startIcon={<VisibilityIcon />} onClick={func}>
+                      {text}
+                  </Button>
+              );
+              break
 
     default:
       buttonElement = (
