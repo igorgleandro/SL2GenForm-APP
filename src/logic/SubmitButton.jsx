@@ -1,16 +1,23 @@
 // components/SubmitButton.jsx
 import {useState, useContext } from "react";
 import { FormContext } from "../providers/FormProvider";
+import { ValidateForm} from "./ValidateForm.jsx";
 
 const SubmitButton = () => {
     const { form1, form2, form3a, form3b, form3c } = useContext(FormContext);
     const [loading, setLoading] = useState(false);
 
-    const handleSubmit = async () => {
+       const handleSubmit = async () => {
+
+           // return the error message if error, show alerts and stop the submission
+
+           const errorMessage = ValidateForm(form1, form2, form3a, form3b, form3c);
+           if (errorMessage) {
+               alert(errorMessage);
+               return;
+           }
+
         const newForm = {
-
-
-
             agentName: form1.agentName,
             agentNbr: form1.agentNbr,
             agencyName: form1.agencyName,

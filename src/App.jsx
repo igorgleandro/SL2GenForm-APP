@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { createPortal } from "react-dom";
 import './App.css'
-import NavBar from './components/NavBar'
 import { InputForm } from './components/InputForm'
 import Typography from '@mui/material/Typography';
 import ColorButtons from './components/ColorButtons.jsx';
