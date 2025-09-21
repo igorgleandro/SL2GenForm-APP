@@ -83,7 +83,12 @@ export default function GetForms() {
                                         >
                                             View
                                         </Button>
-                                    </TableCell>
+
+                                        <Button size="small" onClick={() => setSelectedForm(f)}>
+                                            Print PDF
+                                        </Button>
+
+                                                        </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

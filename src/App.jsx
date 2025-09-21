@@ -14,6 +14,7 @@ import { useContext } from "react";
 import { FormContext } from "./providers/FormProvider";
 import SubmitButton from "./logic/SubmitButton";
 import SL2FormImg from "./assets/Images/Sl2FormImg.png";
+import TestPdfButton from "./components/TestPdfButton";
 
 //Preview Import
 import Drawer from "@mui/material/Drawer";
@@ -369,7 +370,10 @@ const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
                     <ColorButtons color="blue" text="Open Preview" func={openDrawer} />
                 </div>
 
-
+                <div>
+                    <h1>PDF Test</h1>
+                    <TestPdfButton />
+                </div>
 
 
 
