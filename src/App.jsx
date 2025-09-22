@@ -239,19 +239,20 @@ const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
 
     return (
         <>
-            <Box className="min-h-screen grid place-items-center bg-gray-200">
-                <div className="grid grid-cols-2 w-full max-w-6xl">
+        <Box className="min-h-screen grid place-items-center bg-gray-200">
+             <div className="grid grid-cols-1 lg:grid-cols-[1fr_3fr] w-full max-w-7xl gap-4">
 
-                    {/* LEFT COLUMN */}
-                    <Box sx={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                        padding: 1,
-
-
-                    }} className="bg-white p-2">
-                        {/* Form 1 */}
-                        <div className="grid grid-cols-2 gap-4">
+                {/* LEFT COLUMN */}
+                <Box
+                    sx={{ justifyContent: "flex-end", alignItems: "flex-start", p: 1 }}
+                    className="bg-white rounded-2xl border shadow-sm p-4"
+                >
+                    <h3 className="text-base font-semibold text-gray-800 mb-3 p-2">SL2 Form</h3>
+                    {/* Form 1 */}
+                    <div>
+                        <div className="rounded-xl border bg-gray-50 p-4">
+                        <h3 className="text-xs font-semibold text-gray-700 mb-3">Form 1</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {Object.values(form1InputList).map(
                                 ({ onChange, name, type, value, placeholder }, idx) => (
                                     <InputForm
@@ -260,15 +261,21 @@ const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
                                         name={name}
                                         type={type}
                                         value={value}
-                                        placeholder={placeholder}
+                                        label={placeholder}
+                                        placeholder= {placeholder}
                                     />
                                 )
                             )}
                         </div>
-                        <br/>
-                        <Divider sx={{ mb: 2 }} />
+                        </div>
+                    </div>
 
-                        {/* Form 2 */}
+                    <div className="h-px bg-gray-100 my-5" />
+
+                    {/* Form 2 */}
+                    <div>
+                        <div className="rounded-xl border bg-gray-50 p-4 ">
+                        <h3 className="text-xs font-semibold text-gray-700 mb-3">Form 2</h3>
                         <div className="grid grid-cols-1 gap-4">
                             {Object.values(form2InputList).map(
                                 ({ onChange, name, type, value, placeholder, options }, idx) => (
@@ -278,92 +285,116 @@ const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
                                         name={name}
                                         type={type}
                                         value={value}
-                                        placeholder={placeholder}
+                                        label={placeholder}
+                                        placeholder= {placeholder}
                                         options={options}
                                     />
                                 )
                             )}
                         </div>
+                        </div>
+                    </div>
+                </Box>
 
-                        <br/>
-                        <Divider sx={{ mb: 2 }} />
-
-                    </Box>
-                    {/* Right Box */}
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            padding: 1,
-
-
-                        }}
-                    >
-                        <img src={SL2FormImg} alt="SL2 Form Image" style={{ width: "auto", height: "auto" }} />
-                    </Box>
-
-                </div>
-
+                {/* RIGHT COLUMN */}
+                <Box
+                    sx={{ display: "flex", justifyContent: "center", alignItems: "stretch", p: 1 }}
+                    className="rounded-2xl border shadow-sm bg-white"
+                >
                     {/* FORM 3 – Inputs */}
-                <div className="grid grid-cols-1  max-w-6xl bg-white p-4">
-                    <div className="grid grid-cols-3 ">
-                        <div className="bg-gray-200 p-4">
-                            {Object.values(form3aInputList).map(
-                                ({ onChange, name, type, value, placeholder, options }, idx) => (
-                                    <InputForm
-                                        key={idx}
-                                        onChange={onChange}
-                                        name={name}
-                                        type={type}
-                                        value={value}
-                                        placeholder={placeholder}
-                                        options={options}
-                                    />
-                                )
-                            )}
-                        </div>
+                    <div className="w-full p-4">
+                        <h3 className="text-base font-semibold text-gray-800 mb-3">Insurers</h3>
 
-                        <div className="bg-gray-300 p-4">
-                            {Object.values(form3bInputList).map(
-                                ({ onChange, name, type, value, placeholder, options }, idx) => (
-                                    <InputForm
-                                        key={idx}
-                                        onChange={onChange}
-                                        name={name}
-                                        type={type}
-                                        value={value}
-                                        placeholder={placeholder}
-                                        options={options}
-                                    />
-                                )
-                            )}
-                        </div>
+                        {/* 3 columns; last one a bit wider */}
+                        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr_1fr] gap-3">
+                            <section className="rounded-xl border bg-gray-50 p-4">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <span className="inline-flex items-center justify-center w-6 h-6 text-[11px] font-semibold rounded-full border border-emerald-500 text-emerald-600">01</span>
+                                    <h4 className="text-sm font-semibold text-gray-700">Insurer #01</h4>
+                                </div>
+                                <div className="grid grid-cols-1 gap-3">
+                                    {Object.values(form3aInputList).map(
+                                        ({ onChange, name, type, value, placeholder, options }, idx) => (
+                                            <InputForm
+                                                key={idx}
+                                                onChange={onChange}
+                                                name={name}
+                                                type={type}
+                                                value={value}
+                                                label={placeholder}
+                                                placeholder= {placeholder}
+                                                options={options}
+                                            />
+                                        )
+                                    )}
+                                </div>
+                            </section>
 
-                        <div className="bg-gray-200 p-4">
-                            {Object.values(form3cInputList).map(
-                                ({ onChange, name, type, value, placeholder, options }, idx) => (
-                                    <InputForm
-                                        key={idx}
-                                        onChange={onChange}
-                                        name={name}
-                                        type={type}
-                                        value={value}
-                                        placeholder={placeholder}
-                                        options={options}
-                                    />
-                                )
-                            )}
+                            <section className="rounded-xl border bg-gray-50 p-4">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <span className="inline-flex items-center justify-center w-6 h-6 text-[11px] font-semibold rounded-full border border-emerald-500 text-emerald-600">02</span>
+                                    <h4 className="text-sm font-semibold text-gray-700">Insurer #02</h4>
+                                </div>
+                                <div className="grid grid-cols-1 gap-3">
+                                    {Object.values(form3bInputList).map(
+                                        ({ onChange, name, type, value, placeholder, options }, idx) => (
+                                            <InputForm
+                                                key={idx}
+                                                onChange={onChange}
+                                                name={name}
+                                                type={type}
+                                                value={value}
+                                                label={placeholder}
+                                                placeholder= {placeholder}
+                                                options={options}
+                                            />
+                                        )
+                                    )}
+                                </div>
+                            </section>
+
+                            <section className="rounded-xl border bg-gray-50 p-4">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <span className="inline-flex items-center justify-center w-6 h-6 text-[11px] font-semibold rounded-full border border-emerald-500 text-emerald-600">03</span>
+                                    <h4 className="text-sm font-semibold text-gray-700">Insurer #03</h4>
+                                </div>
+                                <div className="grid grid-cols-1 gap-3">
+                                    {Object.values(form3cInputList).map(
+                                        ({ onChange, name, type, value, placeholder, options }, idx) => (
+                                            <InputForm
+                                                key={idx}
+                                                onChange={onChange}
+                                                name={name}
+                                                type={type}
+                                                value={value}
+                                                label={placeholder}
+                                                placeholder= {placeholder}
+                                                options={options}
+                                            />
+                                        )
+                                    )}
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </Box>
+
+                <div className="col-span-full">
+                    <div className="w-full rounded-2xl border shadow-sm bg-white/80 backdrop-blur p-6 flex justify-center">
+                        <div className="flex flex-row gap-4">
+                            <ColorButtons color="green" text="Confirm Input" func={handleConfirm} />
+                            <ColorButtons color="red" text="Reset Input" func={handleCloseConfirm} />
+                            <ColorButtons color="blue" text="Open Preview" func={openDrawer} />
                         </div>
                     </div>
                 </div>
-<br/>
+            </div>
 
-                <div className="flex flex-row gap-4">
-                    <ColorButtons color="green" text="Confirm Input" func={handleConfirm} />
-                    <ColorButtons color="red" text="Reset Input" func={handleCloseConfirm} />
-                    <ColorButtons color="blue" text="Open Preview" func={openDrawer} />
-                </div>
+
+
+
+
+
 
 
             </Box>
