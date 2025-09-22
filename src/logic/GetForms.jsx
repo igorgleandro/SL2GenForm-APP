@@ -1,11 +1,16 @@
 import * as React from "react";
-import { Box,Button,Typography,Table,TableBody,TableCell,TableContainer,TableHead,TableRow, Paper, Dialog, DialogTitle, DialogContent, DialogActions, Divider,} from "@mui/material";
+import {
+    Box, Button, Typography, Table, TableBody, TableCell, TableContainer,
+    TableHead, TableRow, Paper, Dialog, DialogTitle, DialogContent,
+    DialogActions, Divider,
+} from "@mui/material";
+import { generatePdf } from "./pdfUtils";
+import  DeleteButton  from "./DeleteButton";
 
 export default function GetForms() {
     const [forms, setForms] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState("");
-
     const [selectedForm, setSelectedForm] = React.useState(null);
 
     const fetchForms = async () => {
@@ -29,31 +34,15 @@ export default function GetForms() {
 
     return (
         <Box sx={{ p: 2 }}>
-            <Box
-                sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2, justifyContent: "center" }}
-            >
+            <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2, justifyContent: "center" }}>
                 <Typography variant="h4">My Forms</Typography>
-                <Button variant="outlined" onClick={fetchForms}>
-                    Refresh
-                </Button>
+                <Button variant="outlined" onClick={fetchForms}>Refresh</Button>
             </Box>
 
-            {loading && (
-                <Typography textAlign="center" color="text.secondary">
-                    Loading…
-                </Typography>
-            )}
-
-            {error && (
-                <Typography color="error" textAlign="center" sx={{ mb: 2 }}>
-                    {error}
-                </Typography>
-            )}
-
+            {loading && <Typography textAlign="center" color="text.secondary">Loading…</Typography>}
+            {error && <Typography color="error" textAlign="center" sx={{ mb: 2 }}>{error}</Typography>}
             {!loading && !error && forms.length === 0 && (
-                <Typography color="text.secondary" textAlign="center">
-                    No forms yet.
-                </Typography>
+                <Typography color="text.secondary" textAlign="center">No forms yet.</Typography>
             )}
 
             {!loading && !error && forms.length > 0 && (
@@ -76,19 +65,17 @@ export default function GetForms() {
                                     <TableCell>{f.agentName || "—"}</TableCell>
                                     <TableCell>{f.agencyName || "—"}</TableCell>
                                     <TableCell>
-                                        <Button
-                                            variant="outlined"
-                                            size="small"
-                                            onClick={() => setSelectedForm(f)}
-                                        >
+                                        <Button variant="outlined"  size="small" onClick={() => setSelectedForm(f)}>
                                             View
                                         </Button>
 
-                                        <Button size="small" onClick={() => setSelectedForm(f)}>
-                                            Print PDF
+                                        <Button variant="outlined"  size="small" onClick={() => generatePdf(f)}>
+                                            PDF
                                         </Button>
 
-                                                        </TableCell>
+                                        <DeleteButton formId={selectedForm} />
+
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -96,13 +83,7 @@ export default function GetForms() {
                 </TableContainer>
             )}
 
-            {/* Dialog for full details */}
-            <Dialog
-                open={Boolean(selectedForm)}
-                onClose={() => setSelectedForm(null)}
-                maxWidth="md"
-                fullWidth
-            >
+            <Dialog open={Boolean(selectedForm)} onClose={() => setSelectedForm(null)} maxWidth="md" fullWidth>
                 <DialogTitle>Form Details</DialogTitle>
                 <DialogContent dividers>
                     {selectedForm && (
@@ -129,11 +110,16 @@ export default function GetForms() {
                         </Box>
                     )}
                 </DialogContent>
-
                 <DialogActions>
+                    {selectedForm && (
+                        <Button variant="contained" onClick={() => generatePdf(selectedForm)}>
+                            PDF
+                        </Button>
+
+                    )}
+                    <DeleteButton formId={selectedForm} />
                     <Button onClick={() => setSelectedForm(null)}>Close</Button>
                 </DialogActions>
-
             </Dialog>
         </Box>
     );

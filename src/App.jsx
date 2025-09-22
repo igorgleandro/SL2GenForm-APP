@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { createPortal } from "react-dom";
-import './App.css'
 import { InputForm } from './components/InputForm'
 import Typography from '@mui/material/Typography';
 import ColorButtons from './components/ColorButtons.jsx';
@@ -14,15 +13,13 @@ import { useContext } from "react";
 import { FormContext } from "./providers/FormProvider";
 import SubmitButton from "./logic/SubmitButton";
 import SL2FormImg from "./assets/Images/Sl2FormImg.png";
-import TestPdfButton from "./components/TestPdfButton";
+
 
 //Preview Import
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import CloseIcon from "@mui/icons-material/Close";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import GetForms from "./logic/GetForms.jsx";
 
 
@@ -86,8 +83,6 @@ const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
   return createPortal(
     
     <Box className="fixed inset-0 flex items-center justify-center backdrop-blur-sm">
-
-
 
       <Box className="bg-white p-10 rounded-4xl shadow-lg max-w-4xl w-full">
           <Typography variant="h5" sx={{ color: "#dc2626" , mb:2}}>Review</Typography>
@@ -369,12 +364,6 @@ const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
                     <ColorButtons color="red" text="Reset Input" func={handleCloseConfirm} />
                     <ColorButtons color="blue" text="Open Preview" func={openDrawer} />
                 </div>
-
-                <div>
-                    <h1>PDF Test</h1>
-                    <TestPdfButton />
-                </div>
-
 
 
             </div>

@@ -1,7 +1,8 @@
-// components/SubmitButton.jsx
+
 import {useState, useContext } from "react";
 import { FormContext } from "../providers/FormProvider";
 import { ValidateForm} from "./ValidateForm.jsx";
+
 
 const SubmitButton = () => {
     const { form1, form2, form3a, form3b, form3c } = useContext(FormContext);
@@ -62,6 +63,8 @@ const SubmitButton = () => {
             });
             const data = await res.json();
             console.log("Success:", data);
+
+
             alert("Data sent successfully!");
         } catch (err) {
             console.error(err);
