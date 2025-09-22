@@ -2,6 +2,7 @@
 import {useState, useContext } from "react";
 import { FormContext } from "../providers/FormProvider";
 import { ValidateForm} from "./ValidateForm.jsx";
+import {Button} from "@mui/material";
 
 
 const SubmitButton = () => {
@@ -75,14 +76,14 @@ const SubmitButton = () => {
     };
 
     return (
-        <button
-            type="button"
+        <Button
+            variant="contained" color="success"
             onClick={handleSubmit}
             disabled={loading}
-            className="mt-4 rounded bg-green-500 px-4 py-2 text-white hover:bg-green-800 disabled:opacity-50"
+
         >
             {loading ? "Saving..." : "Save Form"}
-        </button>
+        </Button>
     );
 };
 

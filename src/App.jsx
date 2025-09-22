@@ -239,7 +239,7 @@ const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
 
     return (
         <>
-            <div className="min-h-screen grid place-items-center bg-gray-200">
+            <Box className="min-h-screen grid place-items-center bg-gray-200">
                 <div className="grid grid-cols-2 w-full max-w-6xl">
 
                     {/* LEFT COLUMN */}
@@ -366,7 +366,7 @@ const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
                 </div>
 
 
-            </div>
+            </Box>
 
                     {showConfirm ? (
                     <ConfirmedInfo

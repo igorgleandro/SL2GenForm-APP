@@ -6,6 +6,7 @@ import {
 } from "@mui/material";
 import { generatePdf } from "./pdfUtils";
 import  DeleteButton  from "./DeleteButton";
+import ColorButtons from "../components/ColorButtons.jsx";
 
 export default function GetForms() {
     const [forms, setForms] = React.useState([]);
@@ -65,11 +66,11 @@ export default function GetForms() {
                                     <TableCell>{f.agentName || "—"}</TableCell>
                                     <TableCell>{f.agencyName || "—"}</TableCell>
                                     <TableCell>
-                                        <Button variant="outlined"  size="small" onClick={() => setSelectedForm(f)}>
+                                        <Button variant="contained" color="success"  onClick={() => setSelectedForm(f)}>
                                             View
                                         </Button>
 
-                                        <Button variant="outlined"  size="small" onClick={() => generatePdf(f)}>
+                                        <Button variant="contained" color="secondary" onClick={() => generatePdf(f)}>
                                             PDF
                                         </Button>
 
@@ -85,6 +86,7 @@ export default function GetForms() {
 
             <Dialog open={Boolean(selectedForm)} onClose={() => setSelectedForm(null)} maxWidth="md" fullWidth>
                 <DialogTitle>Form Details</DialogTitle>
+
                 <DialogContent dividers>
                     {selectedForm && (
                         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>

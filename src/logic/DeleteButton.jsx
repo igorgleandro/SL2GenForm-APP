@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {Button} from "@mui/material";
 
 const DeleteButton = ({ formId }) => {
     const [loading, setLoading] = useState(false);
@@ -31,14 +32,13 @@ const DeleteButton = ({ formId }) => {
     };
 
     return (
-        <button
-            type="button"
+        <Button
             onClick={handleDelete}
             disabled={loading}
-            className="mt-4 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-800 disabled:opacity-50"
+            variant="contained" color="error"
         >
             {loading ? "Deleting..." : "Delete Form"}
-        </button>
+        </Button>
     );
 };
 
