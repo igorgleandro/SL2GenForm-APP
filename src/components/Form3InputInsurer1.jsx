@@ -1,5 +1,13 @@
+import {insurerOptProvider} from "../providers/InsurerOptProvider.jsx";
 
 const Form3InputInsurer1 = ({ updateForm3a, form3a }) => {
+
+
+    const { options, loading, error} = insurerOptProvider();
+
+
+
+
     return {
         insurer1Input: {
             onChange: updateForm3a,
@@ -7,10 +15,7 @@ const Form3InputInsurer1 = ({ updateForm3a, form3a }) => {
             type: "select",
             value: form3a.insurer1 ?? "",
             placeholder: "Insurer 1",
-            options: [
-                { label: "21st Century Insurance Company", value: "21st Century Insurance Company" },
-                { label: "Accredited Surety and Casualty Company, Inc.", value: "Accredited Surety and Casualty Company, Inc." },
-            ],
+            options,
         },
 
         contactedThrough1Input: {

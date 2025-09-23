@@ -1,4 +1,7 @@
- const Form2InputList = ({ updateForm2, form2 }) => {
+import {useProviderOptions} from "../providers/CovOptionsProvider.jsx";
+
+const Form2InputList = ({ updateForm2, form2 }) => {
+    const { options, loading, error} = useProviderOptions();
   return {
     nameInsuredInput: {
       onChange: updateForm2,
@@ -22,11 +25,7 @@
       type: "select",
       value: form2.coverageCode,
       placeholder: "Coverage Code",
-      options: [
-         { label: "1000 Crime", value: "1000 Crime" },
-          { label: "1001 Excess Crime", value: "1001 Excess Crime" },
-  //more in the API
- ],
+      options,
         },
   };
 };
