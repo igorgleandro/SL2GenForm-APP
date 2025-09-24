@@ -55,8 +55,8 @@ export default function GetForms() {
     }, [forms, searchQuery]);
 
     return (
-        <Box sx={{ p: 2 }} className="max-w-6xl mx-auto min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-            <Box className="rounded-2xl border shadow-sm bg-white/80 dark:bg-gray-800/80 backdrop-blur p-5 dark:border-gray-700 transition-colors duration-300">
+        <Box sx={{ p: 2 }} className="max-w-6xl mx-auto min-h-screen bg-gray-50 dark:bg-gray-900">
+            <Box className="rounded-2xl border shadow-sm bg-white/80 dark:bg-gray-800/80 backdrop-blur p-5 border-gray-200 dark:border-gray-700">
 
                 <Box
                     sx={{
@@ -71,13 +71,13 @@ export default function GetForms() {
                     <Typography
                         variant="h6"
                         sx={{ fontWeight: 700 }}
-                        className="text-gray-900 dark:text-white transition-colors duration-300"
+                        className="text-gray-900 dark:text-white"
                     >
                         My Forms
                     </Typography>
 
                     <Box
-                        className="rounded-full border px-3 py-1.5 bg-white dark:bg-gray-700 dark:border-gray-600 transition-colors duration-300"
+                        className="rounded-full border px-3 py-1.5 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
                         sx={{
                             display: "flex",
                             alignItems: "center",
@@ -91,12 +91,12 @@ export default function GetForms() {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="Search by insured, coverage, agent, agency…"
-                            className="outline-none w-full text-sm placeholder:text-gray-400 dark:placeholder:text-gray-500 bg-transparent text-gray-900 dark:text-white transition-colors duration-300"
+                            className="outline-none w-full text-sm placeholder:text-gray-400 dark:placeholder:text-gray-500 bg-transparent text-gray-900 dark:text-white"
                         />
                         {searchQuery && (
                             <button
                                 onClick={() => setSearchQuery("")}
-                                className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 transition-colors duration-300"
+                                className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
                             >
                                 ✕
                             </button>
@@ -116,7 +116,7 @@ export default function GetForms() {
                             borderColor: "success.main",
                             color: "success.main",
                         }}
-                        className="dark:border-green-400 dark:text-green-400 dark:hover:bg-green-400/10"
+                        className="border-green-500 dark:border-green-400 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-400/10"
                     >
                         Refresh
                     </Button>
@@ -126,7 +126,7 @@ export default function GetForms() {
                 {loading && (
                     <Typography
                         textAlign="center"
-                        className="text-gray-600 dark:text-gray-400 transition-colors duration-300"
+                        className="text-gray-600 dark:text-gray-400"
                     >
                         Loading…
                     </Typography>
@@ -141,7 +141,7 @@ export default function GetForms() {
                 {!loading && !error && forms.length === 0 && (
                     <Typography
                         textAlign="center"
-                        className="text-gray-600 dark:text-gray-400 transition-colors duration-300"
+                        className="text-gray-600 dark:text-gray-400"
                     >
                         No forms yet.
                     </Typography>
@@ -151,7 +151,7 @@ export default function GetForms() {
                 {!loading && !error && forms.length > 0 && filteredForms.length === 0 && (
                     <Typography
                         textAlign="center"
-                        className="text-gray-600 dark:text-gray-400 transition-colors duration-300"
+                        className="text-gray-600 dark:text-gray-400"
                     >
                         No matches for "{searchQuery}".
                     </Typography>
@@ -167,7 +167,7 @@ export default function GetForms() {
                             overflow: "hidden",
                             border: "1px solid",
                         }}
-                        className="border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors duration-300"
+                        className="border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
                     >
                         <Table size="small">
                             <TableHead>
@@ -180,7 +180,7 @@ export default function GetForms() {
                                             py: 1.25,
                                         },
                                     }}
-                                    className="[&_th]:bg-gray-50 [&_th]:dark:bg-gray-700 [&_th]:text-gray-700 [&_th]:dark:text-gray-300 [&_th]:border-b [&_th]:border-gray-200 [&_th]:dark:border-gray-600 [&_th]:transition-colors [&_th]:duration-300"
+                                    className="[&_th]:bg-gray-50 [&_th]:dark:bg-gray-700 [&_th]:text-gray-700 [&_th]:dark:text-gray-300 [&_th]:border-b [&_th]:border-gray-200 [&_th]:dark:border-gray-600"
                                 >
                                     <TableCell>Name Insured</TableCell>
                                     <TableCell>Coverage Code</TableCell>
@@ -195,7 +195,7 @@ export default function GetForms() {
                                     <TableRow
                                         key={f.id ?? idx}
                                         hover
-                                        className="hover:bg-gray-50 dark:hover:bg-gray-700/50 [&:nth-of-type(odd)]:bg-gray-50 [&:nth-of-type(odd)]:dark:bg-gray-700/30 [&_td]:py-3 [&_td]:border-b [&_td]:border-gray-100 [&_td]:dark:border-gray-600 [&_td]:text-gray-900 [&_td]:dark:text-gray-100 [&_td]:transition-colors [&_td]:duration-300"
+                                        className="hover:bg-gray-50 dark:hover:bg-gray-700/50 [&:nth-of-type(odd)]:bg-gray-50/50 [&:nth-of-type(odd)]:dark:bg-gray-700/30 [&_td]:py-3 [&_td]:border-b [&_td]:border-gray-100 [&_td]:dark:border-gray-600 [&_td]:text-gray-900 [&_td]:dark:text-gray-100"
                                     >
                                         <TableCell>{f.nameInsured || "—"}</TableCell>
                                         <TableCell>
@@ -209,7 +209,7 @@ export default function GetForms() {
                                                         border: "1px solid",
                                                         fontSize: 12,
                                                     }}
-                                                    className="border-green-300 dark:border-green-600 text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900/30 transition-colors duration-300"
+                                                    className="border-green-300 dark:border-green-600 text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900/30"
                                                 >
                                                     {f.coverageCode}
                                                 </Box>
@@ -230,7 +230,7 @@ export default function GetForms() {
                                                         borderRadius: 2,
                                                         px: 1.5,
                                                     }}
-                                                    className="border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-300"
+                                                    className="border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700/50"
                                                 >
                                                     View
                                                 </Button>
@@ -268,46 +268,46 @@ export default function GetForms() {
                 fullWidth
                 PaperProps={{
                     sx: { borderRadius: 3, overflow: "hidden", border: "1px solid" },
-                    className: "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors duration-300"
+                    className: "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
                 }}
             >
                 <DialogTitle
                     sx={{ fontWeight: 700 }}
-                    className="text-gray-900 dark:text-white bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 transition-colors duration-300"
+                    className="text-gray-900 dark:text-white bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700"
                 >
                     Form Details
                 </DialogTitle>
 
                 <DialogContent
                     dividers
-                    className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-colors duration-300"
+                    className="bg-white dark:bg-gray-800 [&_.MuiDialogContent-dividers]:border-gray-200 [&_.MuiDialogContent-dividers]:dark:border-gray-700"
                 >
                     {selectedForm && (
                         <Box sx={{ display: "flex", flexDirection: "column", gap: 1.25 }}>
-                            <Typography className="text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                            <Typography className="text-gray-900 dark:text-gray-100">
                                 <strong>Agent:</strong> {selectedForm.agentName} ({selectedForm.agentNbr})
                             </Typography>
-                            <Typography className="text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                            <Typography className="text-gray-900 dark:text-gray-100">
                                 <strong>Agency:</strong> {selectedForm.agencyName} ({selectedForm.agencyNbr})
                             </Typography>
-                            <Typography className="text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                            <Typography className="text-gray-900 dark:text-gray-100">
                                 <strong>Name Insured:</strong> {selectedForm.nameInsured}
                             </Typography>
-                            <Typography className="text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                            <Typography className="text-gray-900 dark:text-gray-100">
                                 <strong>Description Risk:</strong> {selectedForm.descriptionRisk}
                             </Typography>
-                            <Typography className="text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                            <Typography className="text-gray-900 dark:text-gray-100">
                                 <strong>Coverage Code:</strong> {selectedForm.coverageCode}
                             </Typography>
 
                             <Divider
                                 sx={{ my: 1.5 }}
-                                className="border-gray-200 dark:border-gray-600 transition-colors duration-300"
+                                className="border-gray-200 dark:border-gray-600"
                             />
                             <Typography
                                 variant="subtitle1"
                                 sx={{ fontWeight: 700 }}
-                                className="text-gray-900 dark:text-white transition-colors duration-300"
+                                className="text-gray-900 dark:text-white"
                             >
                                 Insurers
                             </Typography>
@@ -321,27 +321,27 @@ export default function GetForms() {
                                         borderRadius: 2,
                                         border: "1px solid",
                                     }}
-                                    className="border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 transition-colors duration-300"
+                                    className="border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700"
                                 >
-                                    <Typography className="text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                                    <Typography className="text-gray-900 dark:text-gray-100">
                                         <strong>Insurer {i}:</strong> {selectedForm[`insurer${i}`] || "—"}
                                     </Typography>
-                                    <Typography className="text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                                    <Typography className="text-gray-900 dark:text-gray-100">
                                         <strong>Contacted Through:</strong> {selectedForm[`contactedThrough${i}`] || "—"}
                                     </Typography>
-                                    <Typography className="text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                                    <Typography className="text-gray-900 dark:text-gray-100">
                                         <strong>Full Contact:</strong> {selectedForm[`fullContactName${i}`] || "—"}
                                     </Typography>
-                                    <Typography className="text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                                    <Typography className="text-gray-900 dark:text-gray-100">
                                         <strong>Email/Phone:</strong> {selectedForm[`emailPhone${i}`] || "—"}
                                     </Typography>
-                                    <Typography className="text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                                    <Typography className="text-gray-900 dark:text-gray-100">
                                         <strong>Website:</strong> {selectedForm[`website${i}`] || "—"}
                                     </Typography>
-                                    <Typography className="text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                                    <Typography className="text-gray-900 dark:text-gray-100">
                                         <strong>NAIC:</strong> {selectedForm[`naic${i}`] || "—"}
                                     </Typography>
-                                    <Typography className="text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                                    <Typography className="text-gray-900 dark:text-gray-100">
                                         <strong>Date:</strong> {selectedForm[`date${i}`] || "—"}
                                     </Typography>
                                 </Box>
@@ -352,7 +352,7 @@ export default function GetForms() {
 
                 <DialogActions
                     sx={{ px: 3, py: 2 }}
-                    className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 transition-colors duration-300"
+                    className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700"
                 >
                     {selectedForm && (
                         <Button
@@ -373,7 +373,7 @@ export default function GetForms() {
                     <Button
                         onClick={() => setSelectedForm(null)}
                         sx={{ textTransform: "none" }}
-                        className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300"
+                        className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                     >
                         Close
                     </Button>

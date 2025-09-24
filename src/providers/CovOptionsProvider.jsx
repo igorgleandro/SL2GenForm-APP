@@ -13,8 +13,8 @@ export const useProviderOptions = () => {
                 const data = await res.json();
 
                 const formatted = data.map((item) => ({
-                    label: `${item.insurer} `,
-                    value: `${item.insurer} `,
+                    label: `${item.id} - ${item.name} `,
+                    value: `${item.id} - ${item.name} `,
                 }));
 
                 setOptions(formatted);
