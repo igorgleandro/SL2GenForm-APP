@@ -1,6 +1,6 @@
-import {insurerOptProvider} from "../providers/InsurerOptProvider.jsx";
+import {InsurerOptProvider} from "../providers/InsurerOptProvider.jsx";
 const Form3InputInsurer2 = ({ updateForm3c, form3c }) => {
-    const { options, loading, error} = insurerOptProvider();
+    const { options, loading, error} = InsurerOptProvider();
 
     return {
         insurer1Input: {

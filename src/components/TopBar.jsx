@@ -3,6 +3,7 @@ import Typography from "@mui/material/Typography";
 import { NavLink } from "react-router-dom";
 import DocumentScannerIcon from "@mui/icons-material/DocumentScanner";
 import * as React from "react";
+import ThemeToggle from "./ThemeToggle.jsx";
 
 export function Topbar() {
     return (
@@ -35,9 +36,9 @@ export function Topbar() {
 
 
 
-                <button className="px-3 py-1.5 rounded-full bg-emerald-500 text-white text-sm font-semibold hover:bg-emerald-600">
-                    Open Cashbox
-                </button>
+
+                    <ThemeToggle/>
+
                 <button className="px-3 py-1.5 rounded-full border text-sm">Logout</button>
             </div>
         </div>

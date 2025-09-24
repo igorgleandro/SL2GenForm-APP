@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import { NavLink } from 'react-router-dom';
+import ThemeToggle from "./ThemeToggle.jsx";
 
 const navItems = [
     { path: '/', name: 'Home' },
@@ -128,6 +129,8 @@ export default function NavBar() {
                         SL2GEN
                     </Typography>
 
+
+
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, gap: 1 }}>
                         {navItems.map((item) => (
                             <Button
@@ -176,6 +179,7 @@ export default function NavBar() {
                             ))}
                         </Menu>
                     </Box>
+
                 </Toolbar>
             </Container>
         </AppBar>

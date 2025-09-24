@@ -12,15 +12,15 @@ import Box from '@mui/material/Box';
 import { useContext } from "react";
 import { FormContext } from "./providers/FormProvider";
 import SubmitButton from "./logic/SubmitButton";
-import SL2FormImg from "./assets/Images/Sl2FormImg.png";
 
 
-//Preview Import
+
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import Divider from "@mui/material/Divider";
 import CloseIcon from "@mui/icons-material/Close";
-import GetForms from "./logic/GetForms.jsx";
+
+import ConfirmationComponent from "./components/ConfirmationComponent.jsx";
 
 
 
@@ -78,81 +78,6 @@ const App = () => {
     const handleConfirm = () => setShowConfirm(true)
     const handleCloseConfirm = () => setShowConfirm(false)
 
-const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
-
-  return createPortal(
-    
-    <Box className="fixed inset-0 flex items-center justify-center backdrop-blur-sm">
-
-      <Box className="bg-white p-10 rounded-4xl shadow-lg max-w-4xl w-full">
-          <Typography variant="h5" sx={{ color: "#dc2626" , mb:2}}>Review</Typography>
-          <Box sx={{mb:4}} >
-            <p><strong>Agent Name:</strong> {form1.agentName}</p>
-            <p><strong>Agent Nbr:</strong> {String(form1.agentNbr)}</p>
-            <p><strong>Agency Name:</strong> {form1.agencyName}</p>
-            <p><strong>Agency Nbr:</strong> {String(form1.agencyNbr)}</p>
-            <br></br>
-            <p><strong>Name of Insured:</strong> {form2.nameInsured}</p>
-            <p><strong>Description Risk:</strong> {String(form2.descriptionRisk)}</p>
-            <p><strong>Coverage Code</strong> {form2.coverageCode}</p>
-          </Box>
-      
-            <Box sx={{ p: 2,borderRadius: 2,boxShadow: 2,bgcolor: "background.paper",display: "flex", gap: 4,
-    alignItems: "flex-start", mb:2,
-  }}>
-              <Box sx={{mb:2}}>
-              <Typography variant="h6" gutterBottom>Insurer 1</Typography>
-              <p><strong>Insurer:</strong> {form3a.insurer1}</p>
-              <p><strong>Contacted Through:</strong> {form3a.contactedThrough1}</p>
-              <p><strong>Full Contact Name: </strong>{form3a.fullContactName1}</p>
-              <p><strong>Phone Number / Email:</strong> {form3a.emailPhone1}</p>
-              <p><strong>Website:</strong> {form3a.website1}</p>
-              <p><strong>NAIC:</strong> {form3a.naic1}</p>
-              <p><strong>Date:</strong> {form3a.date1}</p>
-              </Box>
-              <Box>
-              <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>Insurer 2</Typography>
-              <p><strong>Insurer:</strong> {form3b.insurer2}</p>
-              <p><strong>Contacted Through:</strong> {form3b.contactedThrough2}</p>
-              <p><strong>Full Contact Name:</strong> {form3b.fullContactName2}</p>
-              <p><strong>Phone Number / Email:</strong> {form3b.emailPhone2}</p>
-              <p><strong>Website:</strong> {form3b.website2}</p>
-              <p><strong>NAIC:</strong> {form3b.naic2}</p>
-              <p><strong>Date:</strong> {form3b.date2}</p>
-              </Box>
-              <Box>
-              <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>Insurer 3</Typography>
-              <p><strong>Insurer:</strong> {form3c.insurer3}</p>
-              <p><strong>Contacted Through:</strong> {form3c.contactedThrough3}</p>
-              <p><strong>Full Contact Name:</strong> {form3c.fullContactName3}</p>
-              <p><strong>Phone Number / Email:</strong> {form3c.emailPhone3}</p>
-              <p><strong>Website:</strong> {form3c.website3}</p>
-              <p><strong>NAIC: </strong>{form3c.naic3}</p>
-              <p><strong>Date:</strong> {form3c.date3}</p>
-              </Box>
-            </Box>
-
-          <Box
-              sx={{
-                  display: "flex",
-                  gap: 2,             // spacing between buttons
-                  width: "100%",      // optional, so they expand to full row
-              }}
-          >
-              <SubmitButton />
-
-              <ColorButtons
-                  color="blue"
-                  text="Close"
-                  func={handleCloseConfirm}
-
-              />
-          </Box>
-    </Box>
-    </Box>,
-    document.body 
-  );
-};
 
     //List Form1 data
     const form1InputList = Form1InputList({updateForm1, form1})
@@ -399,18 +324,16 @@ const ConfirmedInfo = ({ form1, form2, form3a,form3b,form3c }) => {
 
             </Box>
 
-                    {showConfirm ? (
-                    <ConfirmedInfo
-                        form1={form1}
-                        form2={form2}
-                        form3a={form3a}
-                        form3b={form3b}
-                        form3c={form3c}
-                    />
-                ) : (
-                    <p className="mt-4 text-gray-600">Create Footer here.</p>
-                )}
-
+            {showConfirm && (
+                <ConfirmationComponent
+                    form1={form1}
+                    form2={form2}
+                    form3a={form3a}
+                    form3b={form3b}
+                    form3c={form3c}
+                    onCloseConfirm={() => setShowConfirm(false)} // simple callback
+                />
+            )}
 
             <Drawer
                 variant="persistent"

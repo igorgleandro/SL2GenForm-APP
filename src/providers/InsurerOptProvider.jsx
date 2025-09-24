@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const insurerOptProvider = () => {
+export const InsurerOptProvider = () => {
     const [options, setOptions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
