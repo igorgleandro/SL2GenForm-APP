@@ -167,7 +167,7 @@ export default function GetForms() {
                             overflow: "hidden",
                             border: "1px solid",
                         }}
-                        className="border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
+                        className="border-gray-200 bg-white dark:border-gray-700  dark:bg-gray-800"
                     >
                         <Table size="small">
                             <TableHead>
@@ -180,7 +180,7 @@ export default function GetForms() {
                                             py: 1.25,
                                         },
                                     }}
-                                    className="[&_th]:bg-gray-50 [&_th]:dark:bg-gray-700 [&_th]:text-gray-700 [&_th]:dark:text-gray-300 [&_th]:border-b [&_th]:border-gray-200 [&_th]:dark:border-gray-600"
+                                    className="[&_th]:bg-gray-50 [&_th]:dark:bg-gray-700 [&_th]:text-gray-700 [&_th]:dark:text-gray-300 [&_th]:border-b [&_th]:border-gray-200 [&_th]:dark:border-gray-800"
                                 >
                                     <TableCell>Name Insured</TableCell>
                                     <TableCell>Coverage Code</TableCell>
@@ -230,7 +230,7 @@ export default function GetForms() {
                                                         borderRadius: 2,
                                                         px: 1.5,
                                                     }}
-                                                    className="border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                                                    className="border-gray-300 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700/50"
                                                 >
                                                     View
                                                 </Button>
@@ -283,7 +283,7 @@ export default function GetForms() {
                     className="bg-white dark:bg-gray-800 [&_.MuiDialogContent-dividers]:border-gray-200 [&_.MuiDialogContent-dividers]:dark:border-gray-700"
                 >
                     {selectedForm && (
-                        <Box sx={{ display: "flex", flexDirection: "column", gap: 1.25 }}>
+                        <Box sx={{ display: "flex", flexDirection: "column", gap: 1.25 }} className="dark:bg-gray-800">
                             <Typography className="text-gray-900 dark:text-gray-100">
                                 <strong>Agent:</strong> {selectedForm.agentName} ({selectedForm.agentNbr})
                             </Typography>

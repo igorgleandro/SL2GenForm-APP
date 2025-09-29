@@ -63,7 +63,7 @@ export const ContactPage = () => {
                     p: 4,
                     borderRadius: 2
                 }}
-                className="bg-white dark:bg-gray-700 shadow-lg dark:shadow-gray-900/30 transition-colors duration-300"
+                className="bg-white dark:bg-gray-400 shadow-lg dark:shadow-gray-900/30 transition-colors duration-300"
             >
                 <TextField
                     label="Your Name"

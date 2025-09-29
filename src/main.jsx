@@ -10,6 +10,8 @@ import ErrorPage from "./pages/ErrorPage.jsx";
 import {AboutPage} from "./pages/AboutPage.jsx";
 import {ContactPage} from "./pages/ContactPage.jsx";
 import {MyFormsPage} from "./pages/MyFormsPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import {AuthProvider} from "./providers/AuthServiceProvider.jsx";
 
 const router = createBrowserRouter([
     {
@@ -21,14 +23,17 @@ const router = createBrowserRouter([
             { path: "about", Component: AboutPage },
             { path: "contact", Component: ContactPage },
             { path: "myforms", Component: MyFormsPage },
+            { path: "login", Component: LoginPage },
         ],
     },
 ]);
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
-        <FormProvider>
-            <RouterProvider router={router} />
-        </FormProvider>
+        <AuthProvider>
+            <FormProvider>
+                    <RouterProvider router={router} />
+            </FormProvider>
+        </AuthProvider>
     </StrictMode>
 );
