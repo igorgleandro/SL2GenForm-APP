@@ -34,6 +34,7 @@ const App = () => {
 
     if (!isLoggedIn) {
         console.log(isLoggedIn)
+        console.log(user)
         return <Navigate to="/login" replace />;
     }
 

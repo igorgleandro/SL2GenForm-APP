@@ -19,7 +19,7 @@ function LoginPage() {
         setError('');
 
         try {
-            const response = await fetch('http://localhost:3000/user-login');
+            const response = await fetch('http://localhost:8080/users');
 
             if (!response.ok) {
                 throw new Error('Failed to fetch user data');

@@ -8,6 +8,11 @@ import { generatePdf } from "./pdfUtils";
 import  DeleteButton  from "./DeleteButton";
 import { useMemo, useState } from "react";
 import { Search as SearchIcon } from "lucide-react";
+import { useAuth } from "../providers/AuthServiceProvider.jsx";
+import {Navigate} from "react-router";
+
+
+
 
 export default function GetForms() {
     const [forms, setForms] = React.useState([]);
@@ -54,7 +59,17 @@ export default function GetForms() {
         });
     }, [forms, searchQuery]);
 
+
+    const { isLoggedIn, user, logout } = useAuth();
+
+    if (!isLoggedIn) {
+        console.log(isLoggedIn)
+        console.log(user)
+        return <Navigate to="/login" replace />;
+    }
+
     return (
+
         <Box sx={{ p: 2 }} className="max-w-6xl mx-auto min-h-screen bg-gray-50 dark:bg-gray-900">
             <Box className="rounded-2xl border shadow-sm bg-white/80 dark:bg-gray-800/80 backdrop-blur p-5 border-gray-200 dark:border-gray-700">
 

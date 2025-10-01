@@ -20,6 +20,7 @@ export function AuthProvider({ children }) {
         setIsLoggedIn(true);
         setUserId(userData.id || userData.email);
         setUser(userData);
+        console.log(userData);
     };
 
     const logout = () => {
