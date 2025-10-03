@@ -11,9 +11,6 @@ import { Search as SearchIcon } from "lucide-react";
 import { useAuth } from "../providers/AuthServiceProvider.jsx";
 import {Navigate} from "react-router";
 
-
-
-
 export default function GetForms() {
     const [forms, setForms] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
@@ -21,11 +18,14 @@ export default function GetForms() {
     const [selectedForm, setSelectedForm] = React.useState(null);
     const [searchQuery, setSearchQuery] = useState("");
 
+    const { isLoggedIn, user, logout } = useAuth();
+
     const fetchForms = async () => {
+        if (!user || !user.id) return;
         setLoading(true);
         setError("");
         try {
-            const res = await fetch("http://localhost:8080/myforms");
+            const res = await fetch(`http://localhost:8080/users/${user.id}/myforms`);
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
             setForms(Array.isArray(data) ? data : []);
@@ -37,8 +37,10 @@ export default function GetForms() {
     };
 
     React.useEffect(() => {
-        fetchForms();
-    }, []);
+        if (user && user.id) {
+            fetchForms();
+        }
+    }, [user]);
 
     const filteredForms = useMemo(() => {
         const q = searchQuery.trim().toLowerCase();
@@ -47,7 +49,6 @@ export default function GetForms() {
         return forms.filter((f) => {
             const get = (v) => (v ? String(v).toLowerCase() : "");
 
-            // Core fields
             const haystack = [
                 get(f.nameInsured),
                 get(f.coverageCode),
@@ -61,14 +62,12 @@ export default function GetForms() {
     }, [forms, searchQuery]);
 
 
-    const { isLoggedIn, user, logout } = useAuth();
 
     if (!isLoggedIn) {
         return <Navigate to="/login" replace />;
     }
 
     return (
-
         <Box sx={{ p: 2 }} className="max-w-6xl mx-auto min-h-screen bg-gray-50 dark:bg-gray-900">
             <Box className="rounded-2xl border shadow-sm bg-white/80 dark:bg-gray-800/80 backdrop-blur p-5 border-gray-200 dark:border-gray-700">
 
