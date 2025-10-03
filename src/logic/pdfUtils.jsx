@@ -2,6 +2,8 @@
 import { PDFDocument, StandardFonts } from "pdf-lib";
 
 export const generatePdf = async (form) => {
+
+    console.log(form);
     try {
         const existingPdfBytes = await fetch("/sl2form.pdf").then((res) => res.arrayBuffer());
         const pdfDoc = await PDFDocument.load(existingPdfBytes);

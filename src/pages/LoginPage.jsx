@@ -32,8 +32,9 @@ function LoginPage() {
             );
 
             if (foundUser) {
+                console.log(foundUser);
                 login({
-                    id: foundUser.email,
+                    id: foundUser.user_id,
                     username: foundUser.username,
                     email: foundUser.email,
                 });

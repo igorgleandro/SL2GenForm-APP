@@ -2,7 +2,7 @@ import {useProviderOptions} from "../providers/CovOptionsProvider.jsx";
 
 const Form2InputList = ({ updateForm2, form2 }) => {
     const { options, loading, error} = useProviderOptions();
-    console.log(options)
+
   return {
     nameInsuredInput: {
       onChange: updateForm2,

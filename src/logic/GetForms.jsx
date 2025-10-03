@@ -25,7 +25,7 @@ export default function GetForms() {
         setLoading(true);
         setError("");
         try {
-            const res = await fetch("http://localhost:3000/user-forms");
+            const res = await fetch("http://localhost:8080/myforms");
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
             setForms(Array.isArray(data) ? data : []);
@@ -53,6 +53,7 @@ export default function GetForms() {
                 get(f.coverageCode),
                 get(f.agentName),
                 get(f.agencyName),
+                get(f.id)
             ].join(" ");
 
             return haystack.includes(q);
@@ -63,8 +64,6 @@ export default function GetForms() {
     const { isLoggedIn, user, logout } = useAuth();
 
     if (!isLoggedIn) {
-        console.log(isLoggedIn)
-        console.log(user)
         return <Navigate to="/login" replace />;
     }
 
@@ -197,6 +196,7 @@ export default function GetForms() {
                                     }}
                                     className="[&_th]:bg-gray-50 [&_th]:dark:bg-gray-700 [&_th]:text-gray-700 [&_th]:dark:text-gray-300 [&_th]:border-b [&_th]:border-gray-200 [&_th]:dark:border-gray-800"
                                 >
+                                    <TableCell>Form ID</TableCell>
                                     <TableCell>Name Insured</TableCell>
                                     <TableCell>Coverage Code</TableCell>
                                     <TableCell>Agent Name</TableCell>
@@ -212,6 +212,7 @@ export default function GetForms() {
                                         hover
                                         className="hover:bg-gray-50 dark:hover:bg-gray-700/50 [&:nth-of-type(odd)]:bg-gray-50/50 [&:nth-of-type(odd)]:dark:bg-gray-700/30 [&_td]:py-3 [&_td]:border-b [&_td]:border-gray-100 [&_td]:dark:border-gray-600 [&_td]:text-gray-900 [&_td]:dark:text-gray-100"
                                     >
+                                        <TableCell>{f.id || "—"}</TableCell>
                                         <TableCell>{f.nameInsured || "—"}</TableCell>
                                         <TableCell>
                                             {f.coverageCode ? (

@@ -3,11 +3,13 @@ import {useState, useContext } from "react";
 import { FormContext } from "../providers/FormProvider";
 import { ValidateForm} from "./ValidateForm.jsx";
 import {Button} from "@mui/material";
+import {useAuth} from "../providers/AuthServiceProvider.jsx";
 
 
 const SubmitButton = () => {
     const { form1, form2, form3a, form3b, form3c } = useContext(FormContext);
     const [loading, setLoading] = useState(false);
+    const { user, isLoggedIn } = useAuth();
 
        const handleSubmit = async () => {
 
@@ -19,7 +21,11 @@ const SubmitButton = () => {
                return;
            }
 
+           console.log(user.id);
+
         const newForm = {
+
+               user_id: user.id,
             agentName: form1.agentName,
             agentNbr: form1.agentNbr,
             agencyName: form1.agencyName,
@@ -53,11 +59,11 @@ const SubmitButton = () => {
             naic3: form3c.naic3,
             date3: form3c.date3,
         };
-
+console.log(newForm);
         setLoading(true);
 
         try {
-            const res = await fetch("http://localhost:3000/user-forms", {
+            const res = await fetch("http://localhost:8080/myforms", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newForm),

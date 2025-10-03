@@ -5,10 +5,7 @@ import { Topbar } from "./Topbar";
 export default function DefaultLayout() {
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 grid grid-cols-[16rem_1fr]">
-            {/* Left: Sidebar */}
             <SidebarNav />
-
-            {/* Right: Topbar + page content */}
             <div className="flex min-h-screen flex-col">
                 <Topbar />
                 <main className="flex-1 p-4 bg-gray-50 dark:bg-gray-900">

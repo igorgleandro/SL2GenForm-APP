@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import {FormProvider} from "./providers/FormProvider.jsx";
-import { BrowserRouter } from "react-router";
 import DefaultLayout from './components/DefaultLayout';
 import { createBrowserRouter, RouterProvider,} from "react-router";
 import ErrorPage from "./pages/ErrorPage.jsx";
@@ -24,6 +23,8 @@ const router = createBrowserRouter([
             { path: "contact", Component: ContactPage },
             { path: "myforms", Component: MyFormsPage },
             { path: "login", Component: LoginPage },
+            { path: "profile", Component: LoginPage },
+
         ],
     },
 ]);

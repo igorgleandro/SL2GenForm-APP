@@ -4,19 +4,21 @@ import {Button} from "@mui/material";
 const DeleteButton = ({ formId }) => {
     const [loading, setLoading] = useState(false);
 
+
+    console.log(formId);
     const handleDelete = async () => {
-        if (!formId.id) {
+        if (!formId) {
             alert("No form ID provided.");
             return;
         }
 
-        if (!window.confirm(`Are you sure you want to delete this form ${formId.id}?`)) {
+        if (!window.confirm(`Are you sure you want to delete this form ${formId}?`)) {
             return;
         }
 
         setLoading(true);
         try {
-            const res = await fetch(`http://localhost:3000/user-forms/${formId.id}`, {
+            const res = await fetch(`http://localhost:8080/myforms/${formId}`, {
                 method: "DELETE",
             });
 
