@@ -1,6 +1,5 @@
 import {createContext, useContext, useState} from "react";
 
-// Move these OUTSIDE the component
 const AuthContext = createContext();
 
 export const useAuth = () => {

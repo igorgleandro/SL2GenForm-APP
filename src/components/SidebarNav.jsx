@@ -32,7 +32,7 @@ export default function SidebarNav() {
                             {user.name || user.email || "User"}
                         </p>
                         <p className="text-xs text-white/75 dark:text-emerald-300/75">
-                            {user.role || "manager"}
+                            {user.role|| " "}
                         </p>
                     </div>
                 </Link>

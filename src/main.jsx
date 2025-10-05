@@ -11,6 +11,8 @@ import {ContactPage} from "./pages/ContactPage.jsx";
 import {MyFormsPage} from "./pages/MyFormsPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import {AuthProvider} from "./providers/AuthServiceProvider.jsx";
+import SignupPage from "./pages/SignupPage.jsx";
+
 
 const router = createBrowserRouter([
     {
@@ -24,6 +26,8 @@ const router = createBrowserRouter([
             { path: "myforms", Component: MyFormsPage },
             { path: "login", Component: LoginPage },
             { path: "profile", Component: LoginPage },
+            { path: "signup", Component: SignupPage },
+
 
         ],
     },
