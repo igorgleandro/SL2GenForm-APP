@@ -10,7 +10,7 @@ import AuthButton from "../logic/LogInInfo.jsx";
 
 export function Topbar() {
 
-    const { isLoggedIn, user, logout } = useAuth();
+    //const { isLoggedIn, user, logout } = useAuth();
 
     return (
         <div className="flex items-center justify-between px-5 py-4 border-b bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800">
@@ -42,13 +42,7 @@ export function Topbar() {
                 </Typography>
             </div>
             <div className="flex items-center gap-2">
-                <div className="hidden md:flex items-center gap-2 rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-1.5 text-sm text-gray-500 dark:text-gray-400">
-                    <Search className="w-4 h-4" />
-                    <input
-                        className="outline-none placeholder:text-gray-400 dark:placeholder:text-gray-500 bg-transparent text-gray-900 dark:text-gray-100 w-40"
-                        placeholder="Search"
-                    />
-                </div>
+
 
                 <ThemeToggle/>
 

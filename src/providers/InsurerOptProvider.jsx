@@ -8,7 +8,7 @@ export const InsurerOptProvider = () => {
     useEffect(() => {
         const fetchProviders = async () => {
             try {
-                const res = await fetch("http://localhost:3000/form-options-Insurers");
+                const res = await fetch("http://localhost:8080/insurers");
                 if (!res.ok) throw new Error("Failed to fetch providers");
                 const data = await res.json();
 

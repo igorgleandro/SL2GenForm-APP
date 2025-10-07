@@ -40,7 +40,7 @@ export default function SidebarNav() {
                 <Link to="/login" className="flex items-center gap-3 mb-6 hover:opacity-80 transition-opacity">
                     <img
                         className="w-10 h-10 rounded-full ring-2 ring-white/30 dark:ring-emerald-400/30"
-                        src="src/assets/images/avatar.png"
+                        src="src/assets/images/avatarGuest.png"
                         alt="avatar"
                     />
 
