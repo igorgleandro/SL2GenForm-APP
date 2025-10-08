@@ -4,6 +4,7 @@ import { FormContext } from "../providers/FormProvider";
 import { ValidateForm} from "./ValidateForm.jsx";
 import {Button} from "@mui/material";
 import {useAuth} from "../providers/AuthServiceProvider.jsx";
+import {useNavigate} from "react-router-dom";
 
 
 const SubmitButton = () => {
@@ -21,7 +22,13 @@ const SubmitButton = () => {
                return;
            }
 
-           console.log(user.id);
+           const token = localStorage.getItem('token');
+           const tokenType = localStorage.getItem('tokenType') || 'Bearer';
+
+           if (!token) {
+               alert("Session expired. Please login again.");
+               return;
+           }
 
         const newForm = {
 
@@ -62,10 +69,12 @@ const SubmitButton = () => {
 console.log(newForm);
         setLoading(true);
 
+
+
         try {
             const res = await fetch("http://localhost:8080/myforms", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json" , 'Authorization': `${tokenType} ${token}` },
                 body: JSON.stringify(newForm),
             });
             const data = await res.json();

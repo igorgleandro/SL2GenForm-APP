@@ -25,7 +25,15 @@ export default function GetForms() {
         setLoading(true);
         setError("");
         try {
-            const res = await fetch(`http://localhost:8080/users/${user.id}/myforms`);
+            const tokenKey = user.tokenType + " " + user.token;
+
+            const res = await fetch(`http://localhost:8080/users/${user.id}/myforms`, {
+                headers: {
+                    'Authorization': tokenKey,
+                    'Accept': 'application/json'
+                },
+            });
+
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
             setForms(Array.isArray(data) ? data : []);

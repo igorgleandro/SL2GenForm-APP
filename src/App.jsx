@@ -30,13 +30,14 @@ const App = () => {
 
     const openDrawer = () => setOpenPreview(true);
 
-    const { isLoggedIn, user, logout } = useAuth();
+    const { isLoggedIn, user } = useAuth();
+
 
     if (!isLoggedIn) {
         console.log(isLoggedIn)
         console.log(user)
         return <Navigate to="/login" replace />;
-    }
+   }
 
 
 

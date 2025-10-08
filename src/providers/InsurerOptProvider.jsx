@@ -14,8 +14,9 @@ export const InsurerOptProvider = () => {
 
                 const formatted = data.map((item) => ({
                     label: `${item.insurer} `,  // insurer + NAIC
-                    value: `${item.naic} `,
-                    website: `${item.website} `,  // NAIC + insurer
+                    value: `${item.insurer} `,
+                    website: `${item.website} `,
+                    naic: `${item.naic} `// NAIC + insurer
                 }));
 
                 setOptions(formatted);

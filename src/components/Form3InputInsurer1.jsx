@@ -14,7 +14,7 @@ const Form3InputInsurer1 = ({ updateForm3a, form3a }) => {
             type: "select",
             value: form3a.insurer1 ?? "",
             placeholder: "Insurer 1",
-            options,
+            options
         },
 
         contactedThrough1Input: {

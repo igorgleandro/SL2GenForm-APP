@@ -19,34 +19,42 @@ function LoginPage() {
         setError('');
 
         try {
-            const response = await fetch('http://localhost:8080/api/v1/auth/login');
+            const response = await fetch('http://localhost:8080/api/v1/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            });
 
             if (!response.ok) {
-                throw new Error('Failed to fetch user data');
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Login failed');
             }
 
-            const userData = await response.json();
-
-            const foundUser = userData.find(
-                user => user.email === email && user.password === password
-            );
+            const data = await response.json();
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('tokenType', data.type);
 
 
-            if (foundUser) {
-                console.log(foundUser + "user found on login page");
+            if (data) {
                 login({
-                    id: foundUser.user_id,
-                    username: foundUser.username,
-                    email: foundUser.email,
-                    role: foundUser.role,
-
+                    id: data.user_id,
+                    username: data.username,
+                    email: data.email,
+                    role: data.role,
+                    token: data.token,
+                    tokenType: data.type,
                 });
-
-                console.log('Login successful');
-                navigate('/');
-            } else {
-                throw new Error('Invalid email or password');
             }
+
+            console.log('Login successful');
+
+
+            navigate('/');
 
         } catch (err) {
             setError(err.message || 'An error occurred during login');

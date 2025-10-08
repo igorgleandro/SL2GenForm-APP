@@ -1,8 +1,10 @@
 import { useState } from "react";
 import {Button} from "@mui/material";
+import { useAuth } from "../providers/AuthServiceProvider.jsx";
 
 const DeleteButton = ({ formId }) => {
     const [loading, setLoading] = useState(false);
+    const { login, isLoggedIn, user, logout } = useAuth();
 
 
     console.log(formId);
@@ -18,8 +20,15 @@ const DeleteButton = ({ formId }) => {
 
         setLoading(true);
         try {
+
+            const tokenKey = user.tokenType + " " + user.token;
+
             const res = await fetch(`http://localhost:8080/myforms/${formId}`, {
                 method: "DELETE",
+                headers: {
+                    'Authorization': tokenKey,
+                    'Accept': 'application/json'
+                },
             });
 
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
