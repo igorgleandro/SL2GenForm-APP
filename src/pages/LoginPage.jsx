@@ -19,7 +19,7 @@ function LoginPage() {
         setError('');
 
         try {
-            const response = await fetch('http://localhost:8080/users');
+            const response = await fetch('http://localhost:8080/api/v1/auth/login');
 
             if (!response.ok) {
                 throw new Error('Failed to fetch user data');
