@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Home, FileText, Info, Phone } from "lucide-react";
+import { Home, FileText, Info, Phone,Settings  } from "lucide-react";
 import * as React from "react";
 import { Link } from 'react-router-dom';
 import { useAuth } from "../providers/AuthServiceProvider.jsx";
@@ -9,12 +9,14 @@ const navItems = [
     { to: "/myforms", label: "MyForms", icon: FileText },
     { to: "/about", label: "About", icon: Info },
     { to: "/contact", label: "Contact", icon: Phone },
+    { to: "/settings", label: "Settings", icon: Settings},
 
 ];
 
 export default function SidebarNav() {
 
     const { user, isLoggedIn } = useAuth();
+    console.log(user);
 
     return (
         <aside className="min-h-screen w-64 bg-gradient-to-b from-emerald-600 to-teal-700 dark:from-emerald-900 dark:to-teal-900 text-white p-4 dark:border-r dark:border-emerald-800/30">
@@ -23,7 +25,7 @@ export default function SidebarNav() {
                 <Link to="/profile" className="flex items-center gap-3 mb-6 hover:opacity-80 transition-opacity">
                     <img
                         className="w-10 h-10 rounded-full ring-2 ring-white/30 dark:ring-emerald-400/30"
-                        src={user.avatar || "src/assets/images/avatar.png"}
+                        src={user.avatar || "/images/avatarGuest.png"}
                         alt="avatar"
                     />
 
@@ -40,7 +42,7 @@ export default function SidebarNav() {
                 <Link to="/login" className="flex items-center gap-3 mb-6 hover:opacity-80 transition-opacity">
                     <img
                         className="w-10 h-10 rounded-full ring-2 ring-white/30 dark:ring-emerald-400/30"
-                        src="src/assets/images/avatarGuest.png"
+                        src="../../public/images/avatarGuest.png"
                         alt="avatar"
                     />
 

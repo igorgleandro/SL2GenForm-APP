@@ -6,8 +6,6 @@ const DeleteButton = ({ formId }) => {
     const [loading, setLoading] = useState(false);
     const { login, isLoggedIn, user, logout } = useAuth();
 
-
-    console.log(formId);
     const handleDelete = async () => {
         if (!formId) {
             alert("No form ID provided.");
@@ -39,6 +37,7 @@ const DeleteButton = ({ formId }) => {
             alert("Failed to delete form. Check console.");
         } finally {
             setLoading(false);
+
         }
     };
 

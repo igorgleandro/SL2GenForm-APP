@@ -24,7 +24,6 @@ export const ContactPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Contact form submitted:", formData);
         alert("Thanks for reaching out! We'll get back to you soon.");
         setFormData({ name: "", email: "", message: "" });
     };

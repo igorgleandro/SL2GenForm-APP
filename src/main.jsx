@@ -10,6 +10,7 @@ import {AboutPage} from "./pages/AboutPage.jsx";
 import {ContactPage} from "./pages/ContactPage.jsx";
 import {MyFormsPage} from "./pages/MyFormsPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+import SettingsPage from "./pages/SettingsPage.jsx";
 import {AuthProvider} from "./providers/AuthServiceProvider.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
             { path: "login", Component: LoginPage },
             { path: "profile", Component: LoginPage },
             { path: "signup", Component: SignupPage },
+            { path: "settings", Component: SettingsPage },
 
 
         ],

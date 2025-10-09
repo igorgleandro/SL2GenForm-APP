@@ -34,8 +34,6 @@ const App = () => {
 
 
     if (!isLoggedIn) {
-        console.log(isLoggedIn)
-        console.log(user)
         return <Navigate to="/login" replace />;
    }
 
@@ -84,6 +82,68 @@ const App = () => {
 
     const handleConfirm = () => setShowConfirm(true)
     const handleCloseConfirm = () => setShowConfirm(false)
+
+    // Reset function to clear all form fields
+    const handleReset = () => {
+        const confirmReset = window.confirm("Are you sure you want to reset all form fields? This action cannot be undone.");
+
+        if (confirmReset) {
+             setForm1({
+                agentName: '',
+                agentNbr: '',
+                agencyName: '',
+                agencyNbr: '',
+            });
+
+
+            setForm2({
+                nameInsured: '',
+                descriptionRisk: '',
+                coverageCode: '',
+            });
+
+
+            setForm3a({
+                insurer1: '',
+                contactedThrough1: '',
+                fullContactName1: '',
+                emailPhone1: '',
+                website1: '',
+                naic1: '',
+                date1: '',
+            });
+
+
+            setForm3b({
+                insurer2: '',
+                contactedThrough2: '',
+                fullContactName2: '',
+                emailPhone2: '',
+                website2: '',
+                naic2: '',
+                date2: '',
+            });
+
+
+            setForm3c({
+                insurer3: '',
+                contactedThrough3: '',
+                fullContactName3: '',
+                emailPhone3: '',
+                website3: '',
+                naic3: '',
+                date3: '',
+            });
+
+
+            setShowConfirm(false);
+            setOpenPreview(false);
+
+
+            console.log("All forms have been reset");
+        }
+    };
+
 
 
     //List Form1 data
@@ -239,7 +299,7 @@ const App = () => {
                         <div className="w-full rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm bg-white/80 dark:bg-gray-800/80 backdrop-blur p-6 flex justify-center">
                             <div className="flex flex-row gap-4">
                                 <ColorButtons color="green" text="Confirm Input" func={handleConfirm} />
-                                <ColorButtons color="red" text="Reset Input" func={handleCloseConfirm} />
+                                <ColorButtons color="red" text="Reset Input" func={handleReset} />
                                 <ColorButtons color="blue" text="Open Preview" func={openDrawer} />
                             </div>
                         </div>
@@ -275,6 +335,7 @@ const App = () => {
                     closeDrawer={() => setOpenPreview(false)}
                     handleConfirm={() => setShowConfirm(true)}
                     handleCloseConfirm={() => {handleCloseConfirm()}}
+                    handleReset={handleReset}
                 />
             </Drawer>
         </>

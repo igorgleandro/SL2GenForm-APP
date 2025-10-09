@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
+import React, { useState } from 'react';
+import {Eye, EyeOff, Lock, Mail, UserCog} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../providers/AuthServiceProvider.jsx";
 
@@ -43,9 +43,12 @@ function LoginPage() {
             if (data) {
                 login({
                     id: data.user_id,
-                    username: data.username,
+                    name: data.name,
+                    surname: data.surname,
                     email: data.email,
                     role: data.role,
+                    avatar: data.avatar,
+                    theme: data.theme,
                     token: data.token,
                     tokenType: data.type,
                 });
@@ -64,20 +67,63 @@ function LoginPage() {
         }
     };
 
-
     if (isLoggedIn) {
         return (
             <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 p-8">
                 <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
                     <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                        Welcome, {user.username}!
+                        Welcome, {user.name}!
+
                     </h1>
                     <div className="space-y-2 text-gray-700 dark:text-gray-300 mb-6">
-                        <p><strong>Email:</strong> {user.email}</p>
                         <p><strong>User ID:</strong> {user.id}</p>
-                        <p><strong>User Role:</strong> {user.role}</p>
-
                     </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Email
+                        </label>
+                        <div className="relative">
+                            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                            <input
+                                type="email"
+                                name="email"
+                                value={user.email}
+                                required
+                                className="w-full pl-11 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                placeholder="john.doe@example.com"
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Role
+                        </label>
+
+                        <div className="relative">
+                            <UserCog className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                            <select
+                                name="role"
+                                value={user.role}
+                                required
+                                className="w-full pl-11 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 appearance-none"
+                            >
+                                <option value="">{user.role}</option>
+                                <option value="USER">User</option>
+                                <option value="ADMIN">Admin</option>
+                                <option value="MANAGER">Manager</option>
+                                <option value="DEVELOPER">Developer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br></br>
+                    <button
+                        onClick={logout}
+                        className="px-6 py-2 bg-yellow-600 hover:bg-yellow-700 text-white font-semibold rounded-lg transition-colors"
+                    >
+                        Update
+                    </button>
+
                     <button
                         onClick={logout}
                         className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors"

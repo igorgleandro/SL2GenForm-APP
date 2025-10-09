@@ -31,6 +31,7 @@ export default function SignupPage() {
             ...formData,
             [e.target.name]: e.target.value
         });
+
     };
 
     const showAlert = (message, type) => {
@@ -196,7 +197,7 @@ export default function SignupPage() {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    Role
+                                    User Settings
                                 </label>
                                 <div className="relative">
                                     <UserCog className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -214,6 +215,23 @@ export default function SignupPage() {
                                         <option value="DEVELOPER">Developer</option>
                                     </select>
                                 </div>
+                                <br></br>
+                                <div className="relative">
+                                    <UserCog className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                    <select
+                                        name="Default Theme"
+                                        value={formData.theme}
+                                        onChange={handleChange}
+                                        required
+                                        className="w-full pl-11 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 appearance-none"
+                                    >
+                                        <option value="">Select a Default Theme</option>
+                                        <option value="DARK">Dark</option>
+                                        <option value="LIGHT">Admin</option>
+                                        <option value="SYSTEM">System</option>
+                                    </select>
+                                </div>
+
                             </div>
 
                             <button

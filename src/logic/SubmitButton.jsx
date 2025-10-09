@@ -66,7 +66,7 @@ const SubmitButton = () => {
             naic3: form3c.naic3,
             date3: form3c.date3,
         };
-console.log(newForm);
+
         setLoading(true);
 
 

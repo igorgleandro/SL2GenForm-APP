@@ -1,10 +1,33 @@
 import {InsurerOptProvider} from "../providers/InsurerOptProvider.jsx";
+import { useContext } from "react";
+import { FormContext } from "../providers/FormProvider.jsx";
+
 const Form3InputInsurer2 = ({ updateForm3c, form3c }) => {
+
     const { options, loading, error} = InsurerOptProvider();
+    const { setForm3c } = useContext(FormContext);
+
+
+    const handleInsurerChange = (event) => {
+        const selectedValue = event.target.value;
+        const selectedOption = options.find(opt => opt.value === selectedValue);
+
+        if (selectedOption) {
+            setForm3c(prev => ({
+                ...prev,
+                insurer3: selectedValue,
+                website3: selectedOption.website || '',
+                naic3: selectedOption.naic || ''
+            }));
+        } else {
+            // Just update the insurer field if no match found
+            updateForm3c(event);
+        }
+    };
 
     return {
         insurer1Input: {
-            onChange: updateForm3c,
+            onChange: handleInsurerChange,
             name: "insurer3",
             type: "select",
             value: form3c.insurer3 ?? "",
@@ -56,6 +79,7 @@ const Form3InputInsurer2 = ({ updateForm3c, form3c }) => {
             placeholder: "NAIC",
             pattern: "\\d{3,10}",
             inputMode: "numeric",
+            disabled: true,
         },
 
         date1Input: {

@@ -11,7 +11,7 @@ export const useAuth = () => {
 };
 
 export function AuthProvider({ children }) {
-    // Initialize state from localStorage
+
     const [isLoggedIn, setIsLoggedIn] = useState(() => {
         return !!localStorage.getItem('token');
     });
@@ -50,9 +50,11 @@ export function AuthProvider({ children }) {
 
     const login = (userData) => {
 
+        console.log(userData);
         setIsLoggedIn(true);
         setUserId(userData.id || userData.email);
         setUser(userData);
+
 // Persist to localStorage
         localStorage.setItem('user', JSON.stringify(userData));
         localStorage.setItem('userId', userData.id || userData.email);

@@ -13,7 +13,7 @@ export default function PreviewPanel({
                                          form3c = {},
                                          closeDrawer = () => {},
                                          handleConfirm = () => {},
-                                         handleCloseConfirm = () => {},
+                                         handleReset = () => {},
                                      }) {
     return (
         <Box sx={{ width: 380, p: 2 }} className="bg-white dark:bg-gray-800">
@@ -88,7 +88,7 @@ export default function PreviewPanel({
 
             <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
                 <ColorButtons color="green" text="Confirm Input" func={handleConfirm} />
-                <ColorButtons color="red" text="Reset Input" func={handleCloseConfirm} />
+                <ColorButtons color="red" text="Reset Input" func={handleReset} />
                 <ColorButtons color="blue" text="Close Preview" func={closeDrawer} />
             </Box>
         </Box>
