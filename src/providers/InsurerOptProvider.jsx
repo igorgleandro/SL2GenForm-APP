@@ -8,7 +8,7 @@ export const InsurerOptProvider = () => {
     useEffect(() => {
         const fetchProviders = async () => {
             try {
-                const res = await fetch("http://localhost:8080/insurers");
+                const res = await fetch("https://sl2genform-back-production.up.railway.app/insurers");
                 if (!res.ok) throw new Error("Failed to fetch providers");
                 const data = await res.json();
 

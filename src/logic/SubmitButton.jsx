@@ -72,7 +72,7 @@ const SubmitButton = () => {
 
 
         try {
-            const res = await fetch("http://localhost:8080/myforms", {
+            const res = await fetch("https://sl2genform-back-production.up.railway.app/myforms", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" , 'Authorization': `${tokenType} ${token}` },
                 body: JSON.stringify(newForm),

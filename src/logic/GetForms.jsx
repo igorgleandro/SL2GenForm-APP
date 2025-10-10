@@ -32,7 +32,7 @@ export default function GetForms() {
         try {
             const tokenKey = `${user.tokenType || 'Bearer'} ${user.token}`;
 
-            const res = await fetch(`http://localhost:8080/users/${user.id}/myforms`, {
+            const res = await fetch(`https://sl2genform-back-production.up.railway.app/users/${user.id}/myforms`, {
                 headers: {
                     'Authorization': tokenKey,
                     'Accept': 'application/json'

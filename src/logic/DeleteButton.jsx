@@ -25,7 +25,7 @@ const DeleteButton = ({ formId, onDeleteSuccess }) => {
         try {
             const tokenKey = `${user.tokenType || 'Bearer'} ${user.token}`;
 
-            const res = await fetch(`http://localhost:8080/myforms/${formId}`, {
+            const res = await fetch(`https://sl2genform-back-production.up.railway.app/myforms/${formId}`, {
                 method: "DELETE",
                 headers: {
                     'Authorization': tokenKey,

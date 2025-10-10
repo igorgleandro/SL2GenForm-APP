@@ -46,7 +46,7 @@ export default function SignupPage() {
         setLoading(true);
 
         try {
-            const response = await fetch('http://localhost:8080/users', {
+            const response = await fetch('https://sl2genform-back-production.up.railway.app/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

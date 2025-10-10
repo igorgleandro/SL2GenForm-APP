@@ -87,7 +87,7 @@ export default function SettingsPage() {
 
         const tokenKey = `${user.tokenType || 'Bearer'} ${user.token}`;
 
-        const res = await fetch(`http://localhost:8080/users/${user.id}`, {
+        const res = await fetch(`https://sl2genform-back-production.up.railway.app/users/${user.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
