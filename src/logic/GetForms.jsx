@@ -5,11 +5,11 @@ import {
     DialogActions, Divider,
 } from "@mui/material";
 import { generatePdf } from "./pdfUtils";
-import  DeleteButton  from "./DeleteButton";
+import DeleteButton from "./DeleteButton";
 import { useMemo, useState } from "react";
 import { Search as SearchIcon } from "lucide-react";
 import { useAuth } from "../providers/AuthServiceProvider.jsx";
-import {Navigate} from "react-router";
+import { Navigate } from "react-router";
 
 export default function GetForms() {
     const [forms, setForms] = React.useState([]);
@@ -18,14 +18,19 @@ export default function GetForms() {
     const [selectedForm, setSelectedForm] = React.useState(null);
     const [searchQuery, setSearchQuery] = useState("");
 
-    const { isLoggedIn, user, logout } = useAuth();
+    const { isLoggedIn, user } = useAuth();
 
-    const fetchForms = async () => {
-        if (!user || !user.id) return;
+    const fetchForms = React.useCallback(async () => {
+        if (!user || !user.id) {
+            setError("User not authenticated");
+            return;
+        }
+
         setLoading(true);
         setError("");
+
         try {
-            const tokenKey = user.tokenType + " " + user.token;
+            const tokenKey = `${user.tokenType || 'Bearer'} ${user.token}`;
 
             const res = await fetch(`http://localhost:8080/users/${user.id}/myforms`, {
                 headers: {
@@ -34,21 +39,36 @@ export default function GetForms() {
                 },
             });
 
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            if (!res.ok) {
+                const errorData = await res.json().catch(() => ({}));
+                throw new Error(errorData.message || `HTTP ${res.status}`);
+            }
+
             const data = await res.json();
             setForms(Array.isArray(data) ? data : []);
         } catch (err) {
-            setError(err.message || "Failed to fetch.");
+            console.error('Fetch forms error:', err);
+            setError(err.message || "Failed to fetch forms.");
         } finally {
             setLoading(false);
         }
-    };
+    }, [user]);
 
     React.useEffect(() => {
         if (user && user.id) {
             fetchForms();
         }
-    }, [user]);
+    }, [user, fetchForms]);
+
+    const handleDeleteSuccess = (deletedFormId) => {
+        // Remove the deleted form from the list
+        setForms(prevForms => prevForms.filter(f => f.id !== deletedFormId));
+
+        // Close the dialog if it's showing the deleted form
+        if (selectedForm?.id === deletedFormId) {
+            setSelectedForm(null);
+        }
+    };
 
     const filteredForms = useMemo(() => {
         const q = searchQuery.trim().toLowerCase();
@@ -69,8 +89,6 @@ export default function GetForms() {
         });
     }, [forms, searchQuery]);
 
-
-
     if (!isLoggedIn) {
         return <Navigate to="/login" replace />;
     }
@@ -83,9 +101,9 @@ export default function GetForms() {
                     sx={{
                         display: "flex",
                         alignItems: "center",
-                        gap: 12,
+                        gap: 2,
                         mb: 2,
-                        justifyContent: "center",
+                        justifyContent: "space-between",
                         flexWrap: "wrap",
                     }}
                 >
@@ -97,63 +115,67 @@ export default function GetForms() {
                         My Forms
                     </Typography>
 
-                    <Box
-                        className="rounded-full border px-3 py-1.5 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
-                        sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 1,
-                            minWidth: 280,
-                        }}
-                    >
-                        <SearchIcon size={16} className="text-gray-500 dark:text-gray-400" />
+                    <Box sx={{ display: "flex", gap: 2, alignItems: "center", flexWrap: "wrap" }}>
+                        <Box
+                            className="rounded-full border px-3 py-1.5 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
+                            sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 1,
+                                minWidth: 280,
+                            }}
+                        >
+                            <SearchIcon size={16} className="text-gray-500 dark:text-gray-400" />
 
-                        <input
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            placeholder="Search by insured, coverage, agent, agency…"
-                            className="outline-none w-full text-sm placeholder:text-gray-400 dark:placeholder:text-gray-500 bg-transparent text-gray-900 dark:text-white"
-                        />
-                        {searchQuery && (
-                            <button
-                                onClick={() => setSearchQuery("")}
-                                className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
-                            >
-                                ✕
-                            </button>
-                        )}
+                            <input
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                placeholder="Search by insured, coverage, agent..."
+                                className="outline-none w-full text-sm placeholder:text-gray-400 dark:placeholder:text-gray-500 bg-transparent text-gray-900 dark:text-white"
+                            />
+                            {searchQuery && (
+                                <button
+                                    onClick={() => setSearchQuery("")}
+                                    className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                                >
+                                    ✕
+                                </button>
+                            )}
+                        </Box>
+
+                        <Button
+                            variant="outlined"
+                            onClick={fetchForms}
+                            disabled={loading}
+                            sx={{
+                                borderRadius: 999,
+                                textTransform: "none",
+                                px: 2.5,
+                                "&:hover": {
+                                    backgroundColor: "rgba(16,185,129,0.06)",
+                                },
+                                borderColor: "success.main",
+                                color: "success.main",
+                            }}
+                            className="border-green-500 dark:border-green-400 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-400/10"
+                        >
+                            {loading ? 'Loading...' : 'Refresh'}
+                        </Button>
                     </Box>
-
-                    <Button
-                        variant="outlined"
-                        onClick={fetchForms}
-                        sx={{
-                            borderRadius: 999,
-                            textTransform: "none",
-                            px: 2.5,
-                            "&:hover": {
-                                backgroundColor: "rgba(16,185,129,0.06)",
-                            },
-                            borderColor: "success.main",
-                            color: "success.main",
-                        }}
-                        className="border-green-500 dark:border-green-400 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-400/10"
-                    >
-                        Refresh
-                    </Button>
                 </Box>
 
                 {/* States */}
                 {loading && (
                     <Typography
                         textAlign="center"
-                        className="text-gray-600 dark:text-gray-400"
+                        className="text-gray-600 dark:text-gray-400 py-8"
                     >
-                        Loading…
+                        Loading forms...
                     </Typography>
                 )}
+
                 {error && (
-                    <Typography color="error" textAlign="center" sx={{ mb: 2 }}>
+                    <Typography color="error" textAlign="center" sx={{ mb: 2, py: 4 }}>
                         {error}
                     </Typography>
                 )}
@@ -162,9 +184,9 @@ export default function GetForms() {
                 {!loading && !error && forms.length === 0 && (
                     <Typography
                         textAlign="center"
-                        className="text-gray-600 dark:text-gray-400"
+                        className="text-gray-600 dark:text-gray-400 py-8"
                     >
-                        No forms yet.
+                        No forms yet. Create your first form to get started!
                     </Typography>
                 )}
 
@@ -172,7 +194,7 @@ export default function GetForms() {
                 {!loading && !error && forms.length > 0 && filteredForms.length === 0 && (
                     <Typography
                         textAlign="center"
-                        className="text-gray-600 dark:text-gray-400"
+                        className="text-gray-600 dark:text-gray-400 py-8"
                     >
                         No matches for "{searchQuery}".
                     </Typography>
@@ -188,7 +210,7 @@ export default function GetForms() {
                             overflow: "hidden",
                             border: "1px solid",
                         }}
-                        className="border-gray-200 bg-white dark:border-gray-700  dark:bg-gray-800"
+                        className="border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800"
                     >
                         <Table size="small">
                             <TableHead>
@@ -272,7 +294,10 @@ export default function GetForms() {
                                                 >
                                                     PDF
                                                 </Button>
-                                                <DeleteButton formId={f.id} />
+                                                <DeleteButton
+                                                    formId={f.id}
+                                                    onDeleteSuccess={handleDeleteSuccess}
+                                                />
                                             </Box>
                                         </TableCell>
                                     </TableRow>
@@ -378,21 +403,26 @@ export default function GetForms() {
                     className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700"
                 >
                     {selectedForm && (
-                        <Button
-                            variant="contained"
-                            onClick={() => generatePdf(selectedForm)}
-                            sx={{
-                                textTransform: "none",
-                                borderRadius: 2,
-                                bgcolor: "success.main",
-                                "&:hover": { bgcolor: "success.dark" },
-                            }}
-                            className="bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
-                        >
-                            PDF
-                        </Button>
+                        <>
+                            <Button
+                                variant="contained"
+                                onClick={() => generatePdf(selectedForm)}
+                                sx={{
+                                    textTransform: "none",
+                                    borderRadius: 2,
+                                    bgcolor: "success.main",
+                                    "&:hover": { bgcolor: "success.dark" },
+                                }}
+                                className="bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+                            >
+                                Download PDF
+                            </Button>
+                            <DeleteButton
+                                formId={selectedForm.id}
+                                onDeleteSuccess={handleDeleteSuccess}
+                            />
+                        </>
                     )}
-                    <DeleteButton formId={selectedForm?.id} />
                     <Button
                         onClick={() => setSelectedForm(null)}
                         sx={{ textTransform: "none" }}

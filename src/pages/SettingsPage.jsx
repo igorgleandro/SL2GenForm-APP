@@ -2,11 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Mail, Lock, Sun, Moon, MonitorCog, Image as ImageIcon, CheckCircle2 } from "lucide-react";
 import { useAuth } from "../providers/AuthServiceProvider.jsx";
 
-
 export default function SettingsPage() {
-
-    const { user,onSave} = useAuth();
-console.log(user);
+    const { user, updateUser } = useAuth();
 
     const avatars = useMemo(
         () => [
@@ -20,9 +17,9 @@ console.log(user);
     );
 
     // ----- Form State -----
-    const [name, setName] = useState(user.name || "");
+    const [name, setName] = useState(user?.name || "");
     const [surname, setSurname] = useState(user?.surname || "");
-    const [role, setRole] = useState(user?.role || " ");
+    const [role, setRole] = useState(user?.role || "USER");
     const [email, setEmail] = useState(user?.email || "");
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
@@ -35,52 +32,88 @@ console.log(user);
     const [error, setError] = useState("");
 
 
+    useEffect(() => {
+        if (user) {
+            setName(user.name || "");
+            setSurname(user.surname || "");
+            setRole(user.role || "USER");
+            setEmail(user.email || "");
+            setTheme(user.theme || "system");
+            setAvatar(user.avatar || avatars[0]);
+        }
+    }, [user, avatars]);
+
     const validate = () => {
         setError("");
+
+
         if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             setError("Please enter a valid email address.");
             return false;
         }
-        if (newPassword || confirmPassword || currentPassword) {
-            if (!currentPassword) {
-                setError("Enter your current password to set a new one.");
+
+        // Check if ANY password field is filled (trim whitespace)
+        const hasPasswordInput = currentPassword.trim() || newPassword.trim() || confirmPassword.trim();
+
+        // If any password field has input, validate all password fields
+        if (hasPasswordInput) {
+            if (!currentPassword.trim()) {
+                setError("Please enter your current password to change it.");
                 return false;
             }
-            if (newPassword.length < 8) {
+            if (!newPassword.trim()) {
+                setError("Please enter a new password.");
+                return false;
+            }
+            if (newPassword.trim().length < 8) {
                 setError("New password must be at least 8 characters.");
                 return false;
             }
-            if (newPassword !== confirmPassword) {
+            if (!confirmPassword.trim()) {
+                setError("Please confirm your new password.");
+                return false;
+            }
+            if (newPassword.trim() !== confirmPassword.trim()) {
                 setError("New password and confirmation do not match.");
                 return false;
             }
         }
+
         return true;
     };
 
-
     const saveSettings = async (payload) => {
+        if (!user?.id || !user?.token) {
+            throw new Error("User not authenticated");
+        }
 
-        const tokenKey = user.tokenType + " " + user.token;
+        const tokenKey = `${user.tokenType || 'Bearer'} ${user.token}`;
 
-         const res = await fetch(`http://localhost:8080/users/${user.id}`, {
-         method: "PATCH",
-         headers: {
-              "Content-Type": "application/json",
-               Authorization: tokenKey,
-         },
-         body: JSON.stringify(payload),
-         });
+        const res = await fetch(`http://localhost:8080/users/${user.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: tokenKey,
+            },
+            body: JSON.stringify(payload),
+        });
 
-         if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        if (!res.ok) {
+            const errorData = await res.json().catch(() => ({}));
+            throw new Error(errorData.message || `HTTP ${res.status}`);
+        }
 
-        await new Promise((r) => setTimeout(r, 400));
+        return await res.json();
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validate()) return;
 
+        // Check if password fields have any input
+        const hasPasswordInput = currentPassword.trim() || newPassword.trim() || confirmPassword.trim();
+
+        // Build payload - start with basic fields
         const payload = {
             name: name?.trim(),
             surname: surname?.trim(),
@@ -88,26 +121,70 @@ console.log(user);
             role: role?.trim(),
             theme: theme?.trim(),
             avatar,
-            ...(newPassword ? { password: newPassword } : {}) // backend expects "password"
         };
+
+        // CRITICAL: Only add password to payload if user is actually changing it
+        // Do NOT include password field at all if it's empty
+        if (hasPasswordInput && newPassword.trim()) {
+            payload.password = newPassword.trim();
+        }
 
         try {
             setSaving(true);
             setMessage("");
             setError("");
-            if (onSave) await onSave(payload);
-            else await saveSettings(payload);
-            setMessage("Settings saved successfully.");
-            // Clear password fields after save
+
+            console.log('Payload being sent:', { ...payload, password: payload.password ? '***' : undefined });
+
+            // Save to backend
+            await saveSettings(payload);
+
+            // Update local user state (never include password in local state)
+            const { password, ...userUpdates } = payload;
+            await updateUser(userUpdates);
+
+            setMessage(
+                hasPasswordInput
+                    ? "Settings and password updated successfully."
+                    : "Settings saved successfully."
+            );
+
+            // Clear password fields after successful save
             setCurrentPassword("");
             setNewPassword("");
             setConfirmPassword("");
         } catch (err) {
+            console.error("Settings save error:", err);
             setError(err?.message || "Failed to save settings.");
         } finally {
             setSaving(false);
         }
     };
+
+    const handleReset = () => {
+        setName(user?.name || "");
+        setSurname(user?.surname || "");
+        setRole(user?.role || "USER");
+        setEmail(user?.email || "");
+        setAvatar(user?.avatar || avatars[0]);
+        setTheme(user?.theme || "system");
+        setCurrentPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+        setError("");
+        setMessage("");
+    };
+
+    if (!user) {
+        return (
+            <div className="min-h-[80vh] w-full flex justify-center items-center">
+                <p className="text-gray-500 dark:text-gray-400">Loading user data...</p>
+            </div>
+        );
+    }
+
+    // Check if user has entered any password data (with trim)
+    const hasPasswordInput = currentPassword.trim() || newPassword.trim() || confirmPassword.trim();
 
     return (
         <div className="min-h-[80vh] w-full flex justify-center px-4 py-10 bg-neutral-50 dark:bg-gray-900">
@@ -128,9 +205,9 @@ console.log(user);
                         <h2 className="text-lg font-medium text-gray-900 dark:text-neutral-100 mb-4">Account</h2>
                         <div className="grid gap-4">
                             <label className="block">
-                <span className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300 mb-1">
-                  <Mail className="h-4 w-4" /> Email
-                </span>
+                                <span className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300 mb-1">
+                                    <Mail className="h-4 w-4" /> Email
+                                </span>
                                 <input
                                     type="email"
                                     value={email}
@@ -149,42 +226,57 @@ console.log(user);
                         <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-3">
                             Leave these fields blank if you don't want to change your password.
                         </p>
+
+                        {/* Password change indicator */}
+                        {hasPasswordInput && (
+                            <div className="mb-3 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                                <p className="text-sm text-blue-700 dark:text-blue-300">
+                                    ℹ️ You are changing your password. All fields are required.
+                                </p>
+                            </div>
+                        )}
+
                         <div className="grid md:grid-cols-3 gap-4">
                             <label className="block">
-                <span className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300 mb-1">
-                  <Lock className="h-4 w-4" /> Current password
-                </span>
+                                <span className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300 mb-1">
+                                    <Lock className="h-4 w-4" /> Current password
+                                </span>
                                 <input
                                     type="password"
                                     value={currentPassword}
                                     onChange={(e) => setCurrentPassword(e.target.value)}
                                     className="w-full rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-gray-900 px-3 py-2 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-800/20"
+                                    placeholder="••••••••"
                                 />
                             </label>
                             <label className="block">
-                <span className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300 mb-1">
-                  New password
-                </span>
+                                <span className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300 mb-1">
+                                    New password
+                                </span>
                                 <input
                                     type="password"
                                     value={newPassword}
                                     onChange={(e) => setNewPassword(e.target.value)}
                                     className="w-full rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-gray-900 px-3 py-2 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-800/20"
+                                    placeholder="••••••••"
                                 />
                             </label>
                             <label className="block">
-                <span className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300 mb-1">
-                  Confirm new password
-                </span>
+                                <span className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300 mb-1">
+                                    Confirm new password
+                                </span>
                                 <input
                                     type="password"
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     className="w-full rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-gray-900 px-3 py-2 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-800/20"
+                                    placeholder="••••••••"
                                 />
                             </label>
                         </div>
                     </section>
+
+                    {/* Profile */}
                     <section>
                         <h2 className="text-lg font-medium text-neutral-900 dark:text-neutral-100 mb-4">Profile</h2>
                         <div className="grid md:grid-cols-3 gap-4">
@@ -287,7 +379,7 @@ console.log(user);
 
                     {/* Footer */}
                     <div className="flex items-center justify-between gap-4 pt-2">
-                        <div className="text-sm">
+                        <div className="text-sm min-h-[20px]">
                             {error && <p className="text-red-600 dark:text-red-400">{error}</p>}
                             {!error && message && (
                                 <p className="text-green-700 dark:text-green-400">{message}</p>
@@ -296,20 +388,7 @@ console.log(user);
                         <div className="flex gap-3">
                             <button
                                 type="button"
-                                onClick={() => {
-                                    // reset to last saved / defaults
-                                    setName(user?.name || "");
-                                    setSurname(user?.surname || "");
-                                    setRole(user?.role || "USER");
-                                    setEmail(user?.email || "");
-                                    setAvatar(user?.avatar || avatars[0]);
-                                    setTheme(localStorage.getItem("pref-theme") || "system");
-                                    setCurrentPassword("");
-                                    setNewPassword("");
-                                    setConfirmPassword("");
-                                    setError("");
-                                    setMessage("");
-                                }}
+                                onClick={handleReset}
                                 className="rounded-xl border border-neutral-300 dark:border-neutral-700 px-4 py-2 text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100/60 dark:hover:bg-neutral-800/60"
                             >
                                 Reset

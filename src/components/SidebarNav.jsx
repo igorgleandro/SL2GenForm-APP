@@ -16,11 +16,9 @@ const navItems = [
 export default function SidebarNav() {
 
     const { user, isLoggedIn } = useAuth();
-    console.log(user);
 
     return (
         <aside className="min-h-screen w-64 bg-gradient-to-b from-emerald-600 to-teal-700 dark:from-emerald-900 dark:to-teal-900 text-white p-4 dark:border-r dark:border-emerald-800/30">
-            {/* user */}
             {isLoggedIn && user ? (
                 <Link to="/profile" className="flex items-center gap-3 mb-6 hover:opacity-80 transition-opacity">
                     <img
@@ -42,7 +40,7 @@ export default function SidebarNav() {
                 <Link to="/login" className="flex items-center gap-3 mb-6 hover:opacity-80 transition-opacity">
                     <img
                         className="w-10 h-10 rounded-full ring-2 ring-white/30 dark:ring-emerald-400/30"
-                        src="../../public/images/avatarGuest.png"
+                        src="../../images/avatarGuest.png"
                         alt="avatar"
                     />
 
@@ -59,7 +57,7 @@ export default function SidebarNav() {
                     <NavLink
                         key={to}
                         to={to}
-                        end={to === "/"} // ensures Home only activates on exact path
+                        end={to === "/"}
                         className={({ isActive }) =>
                             [
                                 "w-full flex items-center gap-3 px-3 py-2 rounded-lg transition text-left",

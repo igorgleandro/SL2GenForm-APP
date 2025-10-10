@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Eye, EyeOff, Lock, Mail, UserCog} from 'lucide-react';
+import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../providers/AuthServiceProvider.jsx";
 
@@ -11,7 +11,7 @@ function LoginPage() {
     const [error, setError] = useState('');
 
     const navigate = useNavigate();
-    const { login, isLoggedIn, user, logout } = useAuth(); // Get all needed values
+    const { login } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,28 +31,24 @@ function LoginPage() {
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
+                const errorData = await response.json().catch(() => ({}));
                 throw new Error(errorData.message || 'Login failed');
             }
 
             const data = await response.json();
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('tokenType', data.type);
 
 
-            if (data) {
-                login({
-                    id: data.user_id,
-                    name: data.name,
-                    surname: data.surname,
-                    email: data.email,
-                    role: data.role,
-                    avatar: data.avatar,
-                    theme: data.theme,
-                    token: data.token,
-                    tokenType: data.type,
-                });
-            }
+            login({
+                id: data.user_id,
+                name: data.name,
+                surname: data.surname,
+                email: data.email,
+                role: data.role,
+                avatar: data.avatar,
+                theme: data.theme,
+                token: data.token,
+                tokenType: data.type,
+            });
 
             console.log('Login successful');
 
@@ -67,73 +63,6 @@ function LoginPage() {
         }
     };
 
-    if (isLoggedIn) {
-        return (
-            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 p-8">
-                <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                        Welcome, {user.name}!
-
-                    </h1>
-                    <div className="space-y-2 text-gray-700 dark:text-gray-300 mb-6">
-                        <p><strong>User ID:</strong> {user.id}</p>
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                            Email
-                        </label>
-                        <div className="relative">
-                            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                            <input
-                                type="email"
-                                name="email"
-                                value={user.email}
-                                required
-                                className="w-full pl-11 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                                placeholder="john.doe@example.com"
-                            />
-                        </div>
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                            Role
-                        </label>
-
-                        <div className="relative">
-                            <UserCog className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                            <select
-                                name="role"
-                                value={user.role}
-                                required
-                                className="w-full pl-11 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 appearance-none"
-                            >
-                                <option value="">{user.role}</option>
-                                <option value="USER">User</option>
-                                <option value="ADMIN">Admin</option>
-                                <option value="MANAGER">Manager</option>
-                                <option value="DEVELOPER">Developer</option>
-                            </select>
-                        </div>
-                    </div>
-                    <br></br>
-                    <button
-                        onClick={logout}
-                        className="px-6 py-2 bg-yellow-600 hover:bg-yellow-700 text-white font-semibold rounded-lg transition-colors"
-                    >
-                        Update
-                    </button>
-
-                    <button
-                        onClick={logout}
-                        className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors"
-                    >
-                        Logout
-                    </button>
-                </div>
-            </div>
-        );
-    }
 
 
     return (
@@ -152,7 +81,7 @@ function LoginPage() {
                         </p>
                     </div>
 
-                    <div className="space-y-4">
+                    <form onSubmit={handleSubmit} className="space-y-4">
                         {error && (
                             <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg text-sm">
                                 {error}
@@ -210,19 +139,22 @@ function LoginPage() {
                                 />
                                 <span className="text-gray-700 dark:text-gray-300">Remember me</span>
                             </label>
-                            <button className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-medium transition-colors">
+                            <button
+                                type="button"
+                                className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-medium transition-colors"
+                            >
                                 Forgot password?
                             </button>
                         </div>
 
                         <button
-                            onClick={handleSubmit}
+                            type="submit"
                             disabled={loading}
                             className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transform hover:scale-[1.02] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                         >
                             {loading ? 'Signing in...' : 'Sign In'}
                         </button>
-                    </div>
+                    </form>
 
                     <div className="relative">
                         <div className="absolute inset-0 flex items-center">
@@ -230,12 +162,8 @@ function LoginPage() {
                         </div>
                     </div>
 
-
                     <p className="text-center text-sm text-gray-600 dark:text-gray-400">
                         Don't have an account?{' '}
-
-
-
                         <button
                             onClick={() => navigate('/signup')}
                             className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-semibold transition-colors"

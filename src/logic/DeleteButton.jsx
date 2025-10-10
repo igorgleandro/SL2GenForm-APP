@@ -1,10 +1,10 @@
 import { useState } from "react";
-import {Button} from "@mui/material";
+import { Button } from "@mui/material";
 import { useAuth } from "../providers/AuthServiceProvider.jsx";
 
-const DeleteButton = ({ formId }) => {
+const DeleteButton = ({ formId, onDeleteSuccess }) => {
     const [loading, setLoading] = useState(false);
-    const { login, isLoggedIn, user, logout } = useAuth();
+    const { user } = useAuth();
 
     const handleDelete = async () => {
         if (!formId) {
@@ -12,14 +12,18 @@ const DeleteButton = ({ formId }) => {
             return;
         }
 
-        if (!window.confirm(`Are you sure you want to delete this form ${formId}?`)) {
+        if (!window.confirm(`Are you sure you want to delete form #${formId}? This action cannot be undone.`)) {
+            return;
+        }
+
+        if (!user || !user.token) {
+            alert("You must be logged in to delete forms.");
             return;
         }
 
         setLoading(true);
         try {
-
-            const tokenKey = user.tokenType + " " + user.token;
+            const tokenKey = `${user.tokenType || 'Bearer'} ${user.token}`;
 
             const res = await fetch(`http://localhost:8080/myforms/${formId}`, {
                 method: "DELETE",
@@ -29,15 +33,22 @@ const DeleteButton = ({ formId }) => {
                 },
             });
 
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            if (!res.ok) {
+                const errorData = await res.json().catch(() => ({}));
+                throw new Error(errorData.message || `HTTP ${res.status}`);
+            }
 
             alert("Form deleted successfully!");
-                    } catch (err) {
-            console.error(err);
-            alert("Failed to delete form. Check console.");
+            
+            // Call the callback to refresh the list
+            if (onDeleteSuccess) {
+                onDeleteSuccess(formId);
+            }
+        } catch (err) {
+            console.error('Delete error:', err);
+            alert(`Failed to delete form: ${err.message}`);
         } finally {
             setLoading(false);
-
         }
     };
 
@@ -45,9 +56,11 @@ const DeleteButton = ({ formId }) => {
         <Button
             onClick={handleDelete}
             disabled={loading}
-            variant="contained" color="error"
+            variant="contained"
+            color="error"
+            size="small"
         >
-            {loading ? "Deleting..." : "Delete Form"}
+            {loading ? "Deleting..." : "Delete"}
         </Button>
     );
 };

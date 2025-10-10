@@ -37,8 +37,6 @@ const App = () => {
         return <Navigate to="/login" replace />;
    }
 
-
-
   const updateForm1 = (event) => {
     const { name, value } = event.target
     setForm1(prev => ({
