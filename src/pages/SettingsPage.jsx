@@ -52,11 +52,9 @@ export default function SettingsPage() {
             return false;
         }
 
-        // Check if ANY password field is filled (trim whitespace)
         const hasPasswordInput = currentPassword.trim() || newPassword.trim() || confirmPassword.trim();
 
-        // If any password field has input, validate all password fields
-        if (hasPasswordInput) {
+       if (hasPasswordInput) {
             if (!currentPassword.trim()) {
                 setError("Please enter your current password to change it.");
                 return false;
@@ -110,10 +108,10 @@ export default function SettingsPage() {
         e.preventDefault();
         if (!validate()) return;
 
-        // Check if password fields have any input
+
         const hasPasswordInput = currentPassword.trim() || newPassword.trim() || confirmPassword.trim();
 
-        // Build payload - start with basic fields
+
         const payload = {
             name: name?.trim(),
             surname: surname?.trim(),
@@ -123,9 +121,7 @@ export default function SettingsPage() {
             avatar,
         };
 
-        // CRITICAL: Only add password to payload if user is actually changing it
-        // Do NOT include password field at all if it's empty
-        if (hasPasswordInput && newPassword.trim()) {
+       if (hasPasswordInput && newPassword.trim()) {
             payload.password = newPassword.trim();
         }
 
@@ -136,10 +132,9 @@ export default function SettingsPage() {
 
             console.log('Payload being sent:', { ...payload, password: payload.password ? '***' : undefined });
 
-            // Save to backend
+
             await saveSettings(payload);
 
-            // Update local user state (never include password in local state)
             const { password, ...userUpdates } = payload;
             await updateUser(userUpdates);
 
@@ -149,7 +144,6 @@ export default function SettingsPage() {
                     : "Settings saved successfully."
             );
 
-            // Clear password fields after successful save
             setCurrentPassword("");
             setNewPassword("");
             setConfirmPassword("");
@@ -183,7 +177,6 @@ export default function SettingsPage() {
         );
     }
 
-    // Check if user has entered any password data (with trim)
     const hasPasswordInput = currentPassword.trim() || newPassword.trim() || confirmPassword.trim();
 
     return (
@@ -246,7 +239,7 @@ export default function SettingsPage() {
                                     value={currentPassword}
                                     onChange={(e) => setCurrentPassword(e.target.value)}
                                     className="w-full rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-gray-900 px-3 py-2 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-800/20"
-                                    placeholder="••••••••"
+                                    placeholder=""
                                 />
                             </label>
                             <label className="block">
@@ -258,7 +251,7 @@ export default function SettingsPage() {
                                     value={newPassword}
                                     onChange={(e) => setNewPassword(e.target.value)}
                                     className="w-full rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-gray-900 px-3 py-2 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-800/20"
-                                    placeholder="••••••••"
+                                    placeholder=""
                                 />
                             </label>
                             <label className="block">
@@ -270,7 +263,7 @@ export default function SettingsPage() {
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     className="w-full rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-gray-900 px-3 py-2 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-800/20"
-                                    placeholder="••••••••"
+                                    placeholder=""
                                 />
                             </label>
                         </div>
