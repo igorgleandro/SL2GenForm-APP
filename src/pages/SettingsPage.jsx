@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Mail, Lock, Sun, Moon, MonitorCog, Image as ImageIcon, CheckCircle2 } from "lucide-react";
 import { useAuth } from "../providers/AuthServiceProvider.jsx";
+import DeleteUserButton from "../logic/DeleteUserButton.jsx";
 
 export default function SettingsPage() {
     const { user, updateUser } = useAuth();
@@ -396,6 +397,10 @@ export default function SettingsPage() {
                         </div>
                     </div>
                 </form>
+
+                <div className="flex items-center justify-between">
+                    <DeleteUserButton/>
+                </div>
             </div>
         </div>
     );

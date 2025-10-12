@@ -15,31 +15,79 @@ Built with React Router, Tailwind CSS, and Material UI, it provides a structured
 ✅ Confirm & Reset Actions with clear feedback.
 🛠 Reusable components (InputForm, ColorButtons, SubmitButton, etc.).
 
-🚀 Getting Started
-1. Clone the repository
-   git clone https://github.com/igorgleandro/sl2Gen-react.git
-   cd insurance-form-app
+🛠️ Technology Stack
 
-2. Install dependencies
-   npm install
+Frontend
 
-3. Run the development server
-   npm run dev
+   ⚛️ React 18 - UI library
+   ⚡ Vite  - Build tool and dev server
+   🧭 React Router DOM  - page navigation + error handling
+   🎨 Material UI  (MUI) - Component library
+   🎨 Tailwind CSS  - Utility-first CSS framework
+   🎨 Lucide React - Icon library
+   🗂 Context API – form state management
+   PDF-lib - PDF generation
 
-App will be running at http://localhost:5173
-(Vite default).
+Backend Integration
+
+   REST API communication
+   JWT authentication
+   Form data persistence
+
+📋 Prerequisites
+
+   Node.js (v16 or higher)
+   npm or yarn
+   Modern web browser
+
+Main Endpoints:
+
+POST /api/v1/auth/login - User login
+POST /users - User registration
+GET /users/:id/myforms - Get user's forms
+POST /myforms - Create new form
+DELETE /myforms/:id - Delete form
+PATCH /users/:id - Update user profile
+GET /insurers - Get insurer list
+GET /covcode - Get coverage codes
 
 
-
-🖥 Tech Stack
-
-⚛️ React 18
-⚡ Vite (fast dev server + bundler)
-🎨 Material UI (MUI) – modern UI components
-🎨 Tailwind CSS – utility-first styling
-🧭 React Router DOM – page navigation + error handling
-🗂 Context API – form state management
+   📁 Project Structure
+src/
+├── components/          # Reusable UI components
+│   ├── ColorButtons.jsx
+│   ├── ConfirmationComponent.jsx
+│   ├── DefaultLayout.jsx
+│   ├── ErrorBoundary.jsx
+│   ├── HeaderBar.jsx
+│   ├── InputForm.jsx
+│   ├── PreviewPanel.jsx
+│   ├── SidebarNav.jsx
+│   └── ThemeToggle.jsx
+├── logic/              # Business logic components
+│   ├── DeleteButton.jsx
+│   ├── GetForms.jsx
+│   ├── LogInInfo.jsx
+│   ├── pdfUtils.jsx
+│   ├── SubmitButton.jsx
+│   └── ValidateForm.jsx
+├── pages/              # Page components
+│   ├── AboutPage.jsx
+│   ├── ContactPage.jsx
+│   ├── ErrorPage.jsx
+│   ├── LoginPage.jsx
+│   ├── MyFormsPage.jsx
+│   ├── ProfilePage.jsx
+│   ├── SettingsPage.jsx
+│   └── SignupPage.jsx
+├── providers/          # Context providers
+│   ├── AuthServiceProvider.jsx
+│   ├── CovOptionsProvider.jsx
+│   ├── FormProvider.jsx
+│   └── InsurerOptProvider.jsx
+├── App.jsx            # Main application component
+├── main.jsx           # Application entry point
+└── index.css          # Global styles
 
 👤 Author
-
 Igor Gomes Leandro
