@@ -218,7 +218,7 @@ export default function GetFormTwo() {
                     borderRadius: 2,
                     border: "1px solid",
                 }}
-                className="border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700"
+                className="border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-white"
             >
                 {fields.map(({ label, field }) => renderField(label, field))}
             </Box>
@@ -231,7 +231,7 @@ export default function GetFormTwo() {
 
     return (
         <Box sx={{ p: 2 }} className="max-w-6xl mx-auto min-h-screen bg-gray-50 dark:bg-gray-900">
-            <Box className="rounded-2xl border shadow-sm bg-white/80 dark:bg-gray-800/80 backdrop-blur p-5 border-gray-200 dark:border-gray-700">
+            <Box className="rounded-2xl border shadow-sm bg-white/80 dark:bg-gray-800/80 backdrop-blur p-5 border-gray-200 dark:border-gray-700 dark:text-white">
 
                 <Box
                     sx={{
@@ -253,7 +253,7 @@ export default function GetFormTwo() {
 
                     <Box sx={{ display: "flex", gap: 2, alignItems: "center", flexWrap: "wrap" }}>
                         <Box
-                            className="rounded-full border px-3 py-1.5 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600"
+                            className="rounded-full border px-3 py-1.5 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 dark:text-white"
                             sx={{
                                 display: "flex",
                                 alignItems: "center",
@@ -261,7 +261,7 @@ export default function GetFormTwo() {
                                 minWidth: 280,
                             }}
                         >
-                            <SearchIcon size={16} className="text-gray-500 dark:text-gray-400" />
+                            <SearchIcon size={16} className="text-gray-500 dark:text-white" />
 
                             <input
                                 value={searchQuery}
@@ -272,7 +272,7 @@ export default function GetFormTwo() {
                             {searchQuery && (
                                 <button
                                     onClick={() => setSearchQuery("")}
-                                    className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                                    className="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
                                 >
                                     ✕
                                 </button>
@@ -304,7 +304,7 @@ export default function GetFormTwo() {
                 {loading && (
                     <Typography
                         textAlign="center"
-                        className="text-gray-600 dark:text-gray-400 py-8"
+                        className="text-gray-600 dark:text-gray-200 py-8"
                     >
                         Loading forms...
                     </Typography>
@@ -319,7 +319,7 @@ export default function GetFormTwo() {
                 {!loading && !error && forms.length === 0 && (
                     <Typography
                         textAlign="center"
-                        className="text-gray-600 dark:text-gray-400 py-8"
+                        className="text-gray-600 dark:text-gray-200 py-8"
                     >
                         No forms yet. Create your first form to get started!
                     </Typography>
@@ -328,7 +328,7 @@ export default function GetFormTwo() {
                 {!loading && !error && forms.length > 0 && filteredForms.length === 0 && (
                     <Typography
                         textAlign="center"
-                        className="text-gray-600 dark:text-gray-400 py-8"
+                        className="text-gray-600 dark:text-gray-200 py-8"
                     >
                         No matches for "{searchQuery}".
                     </Typography>
@@ -344,7 +344,7 @@ export default function GetFormTwo() {
                             overflow: "hidden",
                             border: "1px solid",
                         }}
-                        className="border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800"
+                        className="border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800 dark:text-white"
                     >
                         <Table size="small">
                             <TableHead>
