@@ -12,7 +12,7 @@ export default function DeleteUserButton({ user, onDeleteSuccess }) {
         setError(null);
 
         try {
-            const response = await fetch(`http://localhost:8080/users/${user.id}`, {
+            const response = await fetch(`https://sl2genform-back-production.up.railway.app/users/${user.id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': tokenKey,

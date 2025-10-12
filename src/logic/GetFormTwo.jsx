@@ -2,21 +2,27 @@ import * as React from "react";
 import {
     Box, Button, Typography, Table, TableBody, TableCell, TableContainer,
     TableHead, TableRow, Paper, Dialog, DialogTitle, DialogContent,
-    DialogActions, Divider,
+    DialogActions, Divider, TextField,
 } from "@mui/material";
 import { generatePdf } from "./pdfUtils";
 import DeleteButton from "./DeleteButton";
 import { useMemo, useState } from "react";
-import { Search as SearchIcon } from "lucide-react";
+import { Search as SearchIcon, Edit2, Save, X } from "lucide-react";
 import { useAuth } from "../providers/AuthServiceProvider.jsx";
 import { Navigate } from "react-router";
 
-export default function GetForms() {
+export default function GetFormTwo() {
     const [forms, setForms] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState("");
     const [selectedForm, setSelectedForm] = React.useState(null);
     const [searchQuery, setSearchQuery] = useState("");
+
+    // Edit state
+    const [isEditing, setIsEditing] = useState(false);
+    const [editedForm, setEditedForm] = useState(null);
+    const [saveLoading, setSaveLoading] = useState(false);
+    const [saveMessage, setSaveMessage] = useState({ text: '', type: '' });
 
     const { isLoggedIn, user } = useAuth();
 
@@ -63,8 +69,87 @@ export default function GetForms() {
     const handleDeleteSuccess = (deletedFormId) => {
         setForms(prevForms => prevForms.filter(f => f.id !== deletedFormId));
 
-       if (selectedForm?.id === deletedFormId) {
+        if (selectedForm?.id === deletedFormId) {
             setSelectedForm(null);
+        }
+    };
+
+    const handleEditClick = () => {
+        setIsEditing(true);
+        setEditedForm({ ...selectedForm });
+        setSaveMessage({ text: '', type: '' });
+    };
+
+    const handleCancelEdit = () => {
+        setIsEditing(false);
+        setEditedForm(null);
+        setSaveMessage({ text: '', type: '' });
+    };
+
+    const handleFieldChange = (field, value) => {
+        setEditedForm(prev => ({
+            ...prev,
+            [field]: value
+        }));
+    };
+
+    const handleSaveEdit = async () => {
+        if (!editedForm || !user) return;
+
+        try {
+            setSaveLoading(true);
+            setSaveMessage({ text: '', type: '' });
+
+            const tokenKey = `${user.tokenType || 'Bearer'} ${user.token}`;
+
+            // Create update payload with only changed fields
+            const updatePayload = {};
+            Object.keys(editedForm).forEach(key => {
+                if (editedForm[key] !== selectedForm[key]) {
+                    updatePayload[key] = editedForm[key];
+                }
+            });
+
+            const response = await fetch(
+                `https://sl2genform-back-production.up.railway.app/myforms/${editedForm.id}`,
+                {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': tokenKey,
+                    },
+                    body: JSON.stringify(updatePayload),
+                }
+            );
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.message || 'Failed to update form');
+            }
+
+            const updatedFormData = await response.json();
+
+            // Update the forms list
+            setForms(prevForms =>
+                prevForms.map(f => f.id === updatedFormData.id ? updatedFormData : f)
+            );
+
+            // Update selected form
+            setSelectedForm(updatedFormData);
+            setIsEditing(false);
+            setEditedForm(null);
+            setSaveMessage({ text: 'Form updated successfully!', type: 'success' });
+
+            // Clear success message after 3 seconds
+            setTimeout(() => {
+                setSaveMessage({ text: '', type: '' });
+            }, 3000);
+
+        } catch (err) {
+            console.error('Save error:', err);
+            setSaveMessage({ text: err.message || 'Failed to save changes', type: 'error' });
+        } finally {
+            setSaveLoading(false);
         }
     };
 
@@ -86,6 +171,59 @@ export default function GetForms() {
             return haystack.includes(q);
         });
     }, [forms, searchQuery]);
+
+    const renderField = (label, field, multiline = false) => {
+        const value = isEditing ? editedForm?.[field] : selectedForm?.[field];
+
+        if (isEditing) {
+            return (
+                <TextField
+                    label={label}
+                    value={value || ''}
+                    onChange={(e) => handleFieldChange(field, e.target.value)}
+                    fullWidth
+                    size="small"
+                    multiline={multiline}
+                    rows={multiline ? 2 : 1}
+                    sx={{ mb: 1.5 }}
+                    className="[&_.MuiInputLabel-root]:text-gray-700 [&_.MuiInputLabel-root]:dark:text-gray-300 [&_.MuiOutlinedInput-root]:dark:text-white [&_.MuiOutlinedInput-notchedOutline]:dark:border-gray-600"
+                />
+            );
+        }
+
+        return (
+            <Typography className="text-gray-900 dark:text-gray-100" sx={{ mb: 1 }}>
+                <strong>{label}:</strong> {value || "—"}
+            </Typography>
+        );
+    };
+
+    const renderInsurerSection = (insurerNum) => {
+        const fields = [
+            { label: `Insurer ${insurerNum}`, field: `insurer${insurerNum}` },
+            { label: 'Contacted Through', field: `contactedThrough${insurerNum}` },
+            { label: 'Full Contact', field: `fullContactName${insurerNum}` },
+            { label: 'Email/Phone', field: `emailPhone${insurerNum}` },
+            { label: 'Website', field: `website${insurerNum}` },
+            { label: 'NAIC', field: `naic${insurerNum}` },
+            { label: 'Date', field: `date${insurerNum}` },
+        ];
+
+        return (
+            <Box
+                key={insurerNum}
+                sx={{
+                    mb: 2,
+                    p: 1.5,
+                    borderRadius: 2,
+                    border: "1px solid",
+                }}
+                className="border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700"
+            >
+                {fields.map(({ label, field }) => renderField(label, field))}
+            </Box>
+        );
+    };
 
     if (!isLoggedIn) {
         return <Navigate to="/login" replace />;
@@ -178,7 +316,6 @@ export default function GetForms() {
                     </Typography>
                 )}
 
-
                 {!loading && !error && forms.length === 0 && (
                     <Typography
                         textAlign="center"
@@ -187,7 +324,6 @@ export default function GetForms() {
                         No forms yet. Create your first form to get started!
                     </Typography>
                 )}
-
 
                 {!loading && !error && forms.length > 0 && filteredForms.length === 0 && (
                     <Typography
@@ -267,7 +403,12 @@ export default function GetForms() {
                                                 <Button
                                                     size="small"
                                                     variant="outlined"
-                                                    onClick={() => setSelectedForm(f)}
+                                                    onClick={() => {
+                                                        setSelectedForm(f);
+                                                        setIsEditing(false);
+                                                        setEditedForm(null);
+                                                        setSaveMessage({ text: '', type: '' });
+                                                    }}
                                                     sx={{
                                                         textTransform: "none",
                                                         borderRadius: 2,
@@ -306,10 +447,14 @@ export default function GetForms() {
                 )}
             </Box>
 
-
+            {/* Form Details Dialog */}
             <Dialog
                 open={Boolean(selectedForm)}
-                onClose={() => setSelectedForm(null)}
+                onClose={() => {
+                    if (!isEditing) {
+                        setSelectedForm(null);
+                    }
+                }}
                 maxWidth="md"
                 fullWidth
                 PaperProps={{
@@ -318,80 +463,67 @@ export default function GetForms() {
                 }}
             >
                 <DialogTitle
-                    sx={{ fontWeight: 700 }}
+                    sx={{ fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
                     className="text-gray-900 dark:text-white bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700"
                 >
-                    Form Details
+                    <span>Form Details {isEditing && '(Editing)'}</span>
+                    {!isEditing && (
+                        <Button
+                            startIcon={<Edit2 className="w-4 h-4" />}
+                            onClick={handleEditClick}
+                            variant="outlined"
+                            size="small"
+                            sx={{
+                                textTransform: "none",
+                                borderRadius: 2,
+                            }}
+                            className="border-indigo-300 dark:border-indigo-600 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/30"
+                        >
+                            Edit
+                        </Button>
+                    )}
                 </DialogTitle>
 
                 <DialogContent
                     dividers
                     className="bg-white dark:bg-gray-800 [&_.MuiDialogContent-dividers]:border-gray-200 [&_.MuiDialogContent-dividers]:dark:border-gray-700"
                 >
+                    {saveMessage.text && (
+                        <Box
+                            sx={{ mb: 2, p: 2, borderRadius: 2 }}
+                            className={
+                                saveMessage.type === 'success'
+                                    ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800'
+                                    : 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800'
+                            }
+                        >
+                            {saveMessage.text}
+                        </Box>
+                    )}
+
                     {selectedForm && (
-                        <Box sx={{ display: "flex", flexDirection: "column", gap: 1.25 }} className="dark:bg-gray-800">
-                            <Typography className="text-gray-900 dark:text-gray-100">
-                                <strong>Agent:</strong> {selectedForm.agentName} ({selectedForm.agentNbr})
-                            </Typography>
-                            <Typography className="text-gray-900 dark:text-gray-100">
-                                <strong>Agency:</strong> {selectedForm.agencyName} ({selectedForm.agencyNbr})
-                            </Typography>
-                            <Typography className="text-gray-900 dark:text-gray-100">
-                                <strong>Name Insured:</strong> {selectedForm.nameInsured}
-                            </Typography>
-                            <Typography className="text-gray-900 dark:text-gray-100">
-                                <strong>Description Risk:</strong> {selectedForm.descriptionRisk}
-                            </Typography>
-                            <Typography className="text-gray-900 dark:text-gray-100">
-                                <strong>Coverage Code:</strong> {selectedForm.coverageCode}
-                            </Typography>
+                        <Box sx={{ display: "flex", flexDirection: "column" }} className="dark:bg-gray-800">
+                            {renderField('Agent Name', 'agentName')}
+                            {renderField('Agent Number', 'agentNbr')}
+                            {renderField('Agency Name', 'agencyName')}
+                            {renderField('Agency Number', 'agencyNbr')}
+                            {renderField('Name Insured', 'nameInsured')}
+                            {renderField('Description Risk', 'descriptionRisk', true)}
+                            {renderField('Coverage Code', 'coverageCode')}
 
                             <Divider
-                                sx={{ my: 1.5 }}
+                                sx={{ my: 2 }}
                                 className="border-gray-200 dark:border-gray-600"
                             />
                             <Typography
                                 variant="subtitle1"
-                                sx={{ fontWeight: 700 }}
+                                sx={{ fontWeight: 700, mb: 2 }}
                                 className="text-gray-900 dark:text-white"
                             >
                                 Insurers
                             </Typography>
 
-                            {[1, 2, 3].map((i) => (
-                                <Box
-                                    key={i}
-                                    sx={{
-                                        mb: 1,
-                                        p: 1.25,
-                                        borderRadius: 2,
-                                        border: "1px solid",
-                                    }}
-                                    className="border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700"
-                                >
-                                    <Typography className="text-gray-900 dark:text-gray-100">
-                                        <strong>Insurer {i}:</strong> {selectedForm[`insurer${i}`] || "—"}
-                                    </Typography>
-                                    <Typography className="text-gray-900 dark:text-gray-100">
-                                        <strong>Contacted Through:</strong> {selectedForm[`contactedThrough${i}`] || "—"}
-                                    </Typography>
-                                    <Typography className="text-gray-900 dark:text-gray-100">
-                                        <strong>Full Contact:</strong> {selectedForm[`fullContactName${i}`] || "—"}
-                                    </Typography>
-                                    <Typography className="text-gray-900 dark:text-gray-100">
-                                        <strong>Email/Phone:</strong> {selectedForm[`emailPhone${i}`] || "—"}
-                                    </Typography>
-                                    <Typography className="text-gray-900 dark:text-gray-100">
-                                        <strong>Website:</strong> {selectedForm[`website${i}`] || "—"}
-                                    </Typography>
-                                    <Typography className="text-gray-900 dark:text-gray-100">
-                                        <strong>NAIC:</strong> {selectedForm[`naic${i}`] || "—"}
-                                    </Typography>
-                                    <Typography className="text-gray-900 dark:text-gray-100">
-                                        <strong>Date:</strong> {selectedForm[`date${i}`] || "—"}
-                                    </Typography>
-                                </Box>
-                            ))}
+                            {[1, 2, 3].map(i => renderInsurerSection(i))}
                         </Box>
                     )}
                 </DialogContent>
@@ -400,34 +532,64 @@ export default function GetForms() {
                     sx={{ px: 3, py: 2 }}
                     className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700"
                 >
-                    {selectedForm && (
+                    {isEditing ? (
                         <>
                             <Button
+                                onClick={handleCancelEdit}
+                                startIcon={<X className="w-4 h-4" />}
+                                sx={{ textTransform: "none" }}
+                                className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                onClick={handleSaveEdit}
+                                disabled={saveLoading}
+                                startIcon={<Save className="w-4 h-4" />}
                                 variant="contained"
-                                onClick={() => generatePdf(selectedForm)}
                                 sx={{
                                     textTransform: "none",
                                     borderRadius: 2,
-                                    bgcolor: "success.main",
-                                    "&:hover": { bgcolor: "success.dark" },
+                                    bgcolor: "primary.main",
+                                    "&:hover": { bgcolor: "primary.dark" },
                                 }}
-                                className="bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+                                className="bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600"
                             >
-                                Download PDF
+                                {saveLoading ? 'Saving...' : 'Save Changes'}
                             </Button>
-                            <DeleteButton
-                                formId={selectedForm.id}
-                                onDeleteSuccess={handleDeleteSuccess}
-                            />
+                        </>
+                    ) : (
+                        <>
+                            {selectedForm && (
+                                <>
+                                    <Button
+                                        variant="contained"
+                                        onClick={() => generatePdf(selectedForm)}
+                                        sx={{
+                                            textTransform: "none",
+                                            borderRadius: 2,
+                                            bgcolor: "success.main",
+                                            "&:hover": { bgcolor: "success.dark" },
+                                        }}
+                                        className="bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
+                                    >
+                                        Download PDF
+                                    </Button>
+                                    <DeleteButton
+                                        formId={selectedForm.id}
+                                        onDeleteSuccess={handleDeleteSuccess}
+                                    />
+                                </>
+                            )}
+                            <Button
+                                onClick={() => setSelectedForm(null)}
+                                sx={{ textTransform: "none" }}
+                                className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            >
+                                Close
+                            </Button>
                         </>
                     )}
-                    <Button
-                        onClick={() => setSelectedForm(null)}
-                        sx={{ textTransform: "none" }}
-                        className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
-                        Close
-                    </Button>
                 </DialogActions>
             </Dialog>
         </Box>
