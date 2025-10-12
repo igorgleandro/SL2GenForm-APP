@@ -1,11 +1,11 @@
 import React from 'react';
 import { FileText, Users, Shield, Zap, Target, Heart } from 'lucide-react';
 
-export default function AboutPage() {
+export const AboutPage = () => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 py-12 px-4">
             <div className="max-w-5xl mx-auto">
-
+                {/* Hero Section */}
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center justify-center w-20 h-20 bg-indigo-100 dark:bg-indigo-900 rounded-full mb-6">
                         <FileText className="w-10 h-10 text-indigo-600 dark:text-indigo-400" />
@@ -20,7 +20,7 @@ export default function AboutPage() {
 
                 {/* Main Content Cards */}
                 <div className="grid md:grid-cols-2 gap-8 mb-12">
-
+                    {/* Mission Card */}
                     <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
                         <div className="flex items-center gap-3 mb-4">
                             <Target className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
@@ -33,7 +33,7 @@ export default function AboutPage() {
                         </p>
                     </div>
 
-
+                    {/* Values Card */}
                     <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
                         <div className="flex items-center gap-3 mb-4">
                             <Heart className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
@@ -47,7 +47,7 @@ export default function AboutPage() {
                     </div>
                 </div>
 
-
+                {/* Features Section */}
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-12">
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
                         What We Offer
@@ -91,7 +91,7 @@ export default function AboutPage() {
                     </div>
                 </div>
 
-
+                {/* Technology Stack */}
                 <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-12">
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
                         Built With Modern Technologies
@@ -108,7 +108,7 @@ export default function AboutPage() {
                     </div>
                 </div>
 
-
+                {/* Disclaimer Section */}
                 <div className="bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-200 dark:border-yellow-800 rounded-2xl p-8">
                     <div className="flex items-start gap-4">
                         <Shield className="w-6 h-6 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-1" />
