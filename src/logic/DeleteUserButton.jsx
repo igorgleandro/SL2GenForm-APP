@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { Trash2, AlertCircle } from 'lucide-react';
 
-export default function DeleteUserButton({ userId, userName, token, onDeleteSuccess }) {
+export default function DeleteUserButton({ user, onDeleteSuccess }) {
     const [showConfirm, setShowConfirm] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
     const [error, setError] = useState(null);
+    const tokenKey = `${user.tokenType || 'Bearer'} ${user.token}`;
 
     const handleDelete = async () => {
         setIsDeleting(true);
         setError(null);
 
         try {
-            const response = await fetch(`http://localhost:8080/users/${userId}`, {
+            const response = await fetch(`http://localhost:8080/users/${user.id}`, {
                 method: 'DELETE',
                 headers: {
-                    'Authorization': `Bearer ${token}`,
+                    'Authorization': tokenKey,
                     'Content-Type': 'application/json'
                 }
             });
@@ -22,7 +23,7 @@ export default function DeleteUserButton({ userId, userName, token, onDeleteSucc
             if (response.ok) {
                 setShowConfirm(false);
                 if (onDeleteSuccess) {
-                    onDeleteSuccess(userId);
+                    onDeleteSuccess(user.id);
                 }
             } else if (response.status === 404) {
                 setError('User not found');
@@ -59,7 +60,7 @@ export default function DeleteUserButton({ userId, userName, token, onDeleteSucc
                                     Delete User Account
                                 </h3>
                                 <p className="text-gray-600">
-                                    Are you sure you want to delete <strong>{userName}</strong>? This action cannot be undone and will permanently delete all associated data.
+                                    Are you sure you want to delete <strong>{user.name}</strong>? This action cannot be undone and will permanently delete all associated data.
                                 </p>
                             </div>
                         </div>

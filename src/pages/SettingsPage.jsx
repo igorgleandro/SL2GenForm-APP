@@ -80,6 +80,10 @@ export default function SettingsPage() {
 
         return true;
     };
+    const handleRedirectToLogin = () => {
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+            };
 
     const saveSettings = async (payload) => {
         if (!user?.id || !user?.token) {
@@ -380,6 +384,9 @@ export default function SettingsPage() {
                             )}
                         </div>
                         <div className="flex gap-3">
+                            <DeleteUserButton
+                                onDeleteSuccess={handleRedirectToLogin}
+                            user={user}/>
                             <button
                                 type="button"
                                 onClick={handleReset}
@@ -397,10 +404,6 @@ export default function SettingsPage() {
                         </div>
                     </div>
                 </form>
-
-                <div className="flex items-center justify-between">
-                    <DeleteUserButton/>
-                </div>
             </div>
         </div>
     );

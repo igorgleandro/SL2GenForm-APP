@@ -61,11 +61,9 @@ export default function GetForms() {
     }, [user, fetchForms]);
 
     const handleDeleteSuccess = (deletedFormId) => {
-        // Remove the deleted form from the list
         setForms(prevForms => prevForms.filter(f => f.id !== deletedFormId));
 
-        // Close the dialog if it's showing the deleted form
-        if (selectedForm?.id === deletedFormId) {
+       if (selectedForm?.id === deletedFormId) {
             setSelectedForm(null);
         }
     };
