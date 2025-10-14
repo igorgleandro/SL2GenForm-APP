@@ -5,6 +5,8 @@ import { LogOut, LogIn } from 'lucide-react';
 export default function AuthButton() {
     const { isLoggedIn, user, logout } = useAuth();
     const navigate = useNavigate();
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 
     const handleLogout = () => {
         logout();

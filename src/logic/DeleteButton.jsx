@@ -5,6 +5,7 @@ import { useAuth } from "../providers/AuthServiceProvider.jsx";
 const DeleteButton = ({ formId, onDeleteSuccess }) => {
     const [loading, setLoading] = useState(false);
     const { user } = useAuth();
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const handleDelete = async () => {
         if (!formId) {
@@ -25,7 +26,7 @@ const DeleteButton = ({ formId, onDeleteSuccess }) => {
         try {
             const tokenKey = `${user.tokenType || 'Bearer'} ${user.token}`;
 
-            const res = await fetch(`https://sl2genform-back-production.up.railway.app/myforms/${formId}`, {
+            const res = await fetch(`${API_BASE_URL}/myforms/${formId}`, {
                 method: "DELETE",
                 headers: {
                     'Authorization': tokenKey,

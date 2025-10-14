@@ -17,6 +17,7 @@ export default function GetForms() {
     const [error, setError] = React.useState("");
     const [selectedForm, setSelectedForm] = React.useState(null);
     const [searchQuery, setSearchQuery] = useState("");
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const { isLoggedIn, user } = useAuth();
 
@@ -32,7 +33,7 @@ export default function GetForms() {
         try {
             const tokenKey = `${user.tokenType || 'Bearer'} ${user.token}`;
 
-            const res = await fetch(`https://sl2genform-back-production.up.railway.app/users/${user.id}/myforms`, {
+            const res = await fetch(`${API_BASE_URL}/users/${user.id}/myforms`, {
                 headers: {
                     'Authorization': tokenKey,
                     'Accept': 'application/json'

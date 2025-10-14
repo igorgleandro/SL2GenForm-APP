@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Moon, Sun, User, Mail, Lock, UserCog } from 'lucide-react';
 
 export default function SignupPage() {
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const [darkMode, setDarkMode] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
@@ -46,7 +47,7 @@ export default function SignupPage() {
         setLoading(true);
 
         try {
-            const response = await fetch('https://sl2genform-back-production.up.railway.app/users', {
+            const response = await fetch('`${API_BASE_URL}/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

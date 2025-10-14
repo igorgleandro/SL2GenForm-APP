@@ -4,11 +4,12 @@ export const InsurerOptProvider = () => {
     const [options, setOptions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     useEffect(() => {
         const fetchProviders = async () => {
             try {
-                const res = await fetch("https://sl2genform-back-production.up.railway.app/insurers");
+                const res = await fetch(`${API_BASE_URL}/insurers`);
                 if (!res.ok) throw new Error("Failed to fetch providers");
                 const data = await res.json();
 

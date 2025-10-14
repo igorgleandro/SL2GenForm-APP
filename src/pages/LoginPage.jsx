@@ -9,6 +9,7 @@ function LoginPage() {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const navigate = useNavigate();
     const { login } = useAuth();
@@ -19,7 +20,7 @@ function LoginPage() {
         setError('');
 
         try {
-            const response = await fetch('https://sl2genform-back-production.up.railway.app/api/v1/auth/login', {
+            const response = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -49,8 +50,6 @@ function LoginPage() {
                 token: data.token,
                 tokenType: data.type,
             });
-
-            console.log('Login successful');
 
 
             navigate('/');

@@ -26,10 +26,7 @@ const App = () => {
     const [showConfirm, setShowConfirm] = useState(false)
     const [openPreview, setOpenPreview] = useState(false);
 
-
-
     const openDrawer = () => setOpenPreview(true);
-
     const { isLoggedIn, user } = useAuth();
 
 
@@ -81,7 +78,6 @@ const App = () => {
     const handleConfirm = () => setShowConfirm(true)
     const handleCloseConfirm = () => setShowConfirm(false)
 
-    // Reset function to clear all form fields
     const handleReset = () => {
         const confirmReset = window.confirm("Are you sure you want to reset all form fields? This action cannot be undone.");
 

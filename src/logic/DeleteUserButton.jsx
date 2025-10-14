@@ -6,13 +6,14 @@ export default function DeleteUserButton({ user, onDeleteSuccess }) {
     const [isDeleting, setIsDeleting] = useState(false);
     const [error, setError] = useState(null);
     const tokenKey = `${user.tokenType || 'Bearer'} ${user.token}`;
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const handleDelete = async () => {
         setIsDeleting(true);
         setError(null);
 
         try {
-            const response = await fetch(`https://sl2genform-back-production.up.railway.app/users/${user.id}`, {
+            const response = await fetch(`${API_BASE_URL}/users/${user.id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': tokenKey,

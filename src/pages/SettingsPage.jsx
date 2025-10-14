@@ -4,6 +4,7 @@ import { useAuth } from "../providers/AuthServiceProvider.jsx";
 import DeleteUserButton from "../logic/DeleteUserButton.jsx";
 
 export default function SettingsPage() {
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const { user, updateUser } = useAuth();
 
     const avatars = useMemo(
@@ -92,7 +93,7 @@ export default function SettingsPage() {
 
         const tokenKey = `${user.tokenType || 'Bearer'} ${user.token}`;
 
-        const res = await fetch(`https://sl2genform-back-production.up.railway.app/users/${user.id}`, {
+        const res = await fetch(`${API_BASE_URL}/users/${user.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",

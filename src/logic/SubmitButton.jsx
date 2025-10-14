@@ -11,6 +11,7 @@ const SubmitButton = () => {
     const { form1, form2, form3a, form3b, form3c } = useContext(FormContext);
     const [loading, setLoading] = useState(false);
     const { user, isLoggedIn } = useAuth();
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
        const handleSubmit = async () => {
 
@@ -72,7 +73,7 @@ const SubmitButton = () => {
 
 
         try {
-            const res = await fetch("https://sl2genform-back-production.up.railway.app/myforms", {
+            const res = await fetch(`${API_BASE_URL}/myforms`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" , 'Authorization': `${tokenType} ${token}` },
                 body: JSON.stringify(newForm),

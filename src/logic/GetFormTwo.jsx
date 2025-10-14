@@ -17,6 +17,7 @@ export default function GetFormTwo() {
     const [error, setError] = React.useState("");
     const [selectedForm, setSelectedForm] = React.useState(null);
     const [searchQuery, setSearchQuery] = useState("");
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     // Edit state
     const [isEditing, setIsEditing] = useState(false);
@@ -38,7 +39,7 @@ export default function GetFormTwo() {
         try {
             const tokenKey = `${user.tokenType || 'Bearer'} ${user.token}`;
 
-            const res = await fetch(`https://sl2genform-back-production.up.railway.app/users/${user.id}/myforms`, {
+            const res = await fetch(`${API_BASE_URL}/users/${user.id}/myforms`, {
                 headers: {
                     'Authorization': tokenKey,
                     'Accept': 'application/json'
@@ -102,7 +103,7 @@ export default function GetFormTwo() {
 
             const tokenKey = `${user.tokenType || 'Bearer'} ${user.token}`;
 
-            // Create update payload with only changed fields
+
             const updatePayload = {};
             Object.keys(editedForm).forEach(key => {
                 if (editedForm[key] !== selectedForm[key]) {
@@ -111,7 +112,7 @@ export default function GetFormTwo() {
             });
 
             const response = await fetch(
-                `https://sl2genform-back-production.up.railway.app/myforms/${editedForm.id}`,
+                `${API_BASE_URL}/myforms/${editedForm.id}`,
                 {
                     method: 'PATCH',
                     headers: {

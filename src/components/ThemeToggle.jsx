@@ -11,7 +11,6 @@ export default function ThemeToggle() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const isCurrentlyDark = currentTheme === 'dark';
             setIsDark(isCurrentlyDark);
-            console.log('ThemeToggle: Current theme is', currentTheme);
         };
 
 
@@ -38,7 +37,7 @@ export default function ThemeToggle() {
         const nextTheme = !isDark ? 'dark' : 'light';
         setIsDark(!isDark);
         document.documentElement.setAttribute('data-theme', nextTheme);
-        console.log('ThemeToggle: Switched to', nextTheme);
+
 
     };
 
