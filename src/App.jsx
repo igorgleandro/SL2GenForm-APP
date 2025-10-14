@@ -134,7 +134,7 @@ const App = () => {
             setOpenPreview(false);
 
 
-            console.log("All forms have been reset");
+
         }
     };
 

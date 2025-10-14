@@ -65,7 +65,7 @@ export function AuthProvider({ children }) {
     };
 
     const login = (userData) => {
-        console.log('Logging in user:', userData);
+
         setIsLoggedIn(true);
         setUserId(userData.id || userData.email);
         setUser(userData);
@@ -79,7 +79,6 @@ export function AuthProvider({ children }) {
 
         applyTheme(userData.theme || 'system');
 
-        console.log("User logged in and data persisted:", userData);
     };
 
     const logout = () => {
@@ -90,7 +89,6 @@ export function AuthProvider({ children }) {
 
         applyTheme('system');
 
-        console.log("User logged out and data cleared");
     };
 
        const updateUser = async (updates) => {

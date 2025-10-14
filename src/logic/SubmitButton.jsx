@@ -79,7 +79,7 @@ const SubmitButton = () => {
                 body: JSON.stringify(newForm),
             });
             const data = await res.json();
-            console.log("Success:", data);
+
 
 
             alert("Data sent successfully!");

@@ -136,7 +136,7 @@ export default function SettingsPage() {
             setMessage("");
             setError("");
 
-            console.log('Payload being sent:', { ...payload, password: payload.password ? '***' : undefined });
+            //console.log('Payload being sent:', { ...payload, password: payload.password ? '***' : undefined });
 
 
             await saveSettings(payload);
