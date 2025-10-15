@@ -178,7 +178,7 @@ export default function SettingsPage() {
     if (!user) {
         return (
             <div className="min-h-[80vh] w-full flex justify-center items-center">
-                <p className="text-gray-500 dark:text-gray-400">Loading user data...</p>
+                <p className="text-gray-500 dark:text-gray-400">You are not logged in. Please log in.</p>
             </div>
         );
     }
