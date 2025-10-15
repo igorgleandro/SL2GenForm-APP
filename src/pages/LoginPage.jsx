@@ -33,7 +33,7 @@ function LoginPage() {
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.message || 'Login failed');
+                throw new Error(errorData.message || 'Login failed, review your email and password');
             }
 
             const data = await response.json();
