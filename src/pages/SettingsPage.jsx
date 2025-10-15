@@ -2,10 +2,11 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Mail, Lock, Sun, Moon, MonitorCog, Image as ImageIcon, CheckCircle2 } from "lucide-react";
 import { useAuth } from "../providers/AuthServiceProvider.jsx";
 import DeleteUserButton from "../logic/DeleteUserButton.jsx";
+import {Navigate} from "react-router";
 
 export default function SettingsPage() {
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-    const { user, updateUser } = useAuth();
+    const { user, updateUser, isLoggedIn } = useAuth();
 
     const avatars = useMemo(
         () => [
@@ -175,10 +176,14 @@ export default function SettingsPage() {
         setMessage("");
     };
 
+    if (!isLoggedIn) {
+        return <Navigate to="/login" replace />;
+    }
+
     if (!user) {
         return (
             <div className="min-h-[80vh] w-full flex justify-center items-center">
-                <p className="text-gray-500 dark:text-gray-400">You are not logged in. Please log in.</p>
+                <p className="text-gray-500 dark:text-gray-400">Loading user data...</p>
             </div>
         );
     }
