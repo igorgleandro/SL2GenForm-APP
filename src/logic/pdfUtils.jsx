@@ -68,7 +68,7 @@ export const generatePdf = async (form) => {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `Form-${form.id ?? "download"}.pdf`;
+        a.download = `SL2-${form.nameInsured}HO-${form.id ?? "download"}.pdf`;
         a.click();
         URL.revokeObjectURL(url);
     } catch (err) {
