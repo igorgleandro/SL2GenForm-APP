@@ -67,6 +67,8 @@ export default function GetFormTwo() {
         }
     }, [user, fetchForms]);
 
+    //Handlers
+
     const handleDeleteSuccess = (deletedFormId) => {
         setForms(prevForms => prevForms.filter(f => f.id !== deletedFormId));
 
@@ -175,6 +177,7 @@ export default function GetFormTwo() {
 
     const renderField = (label, field, multiline = false) => {
         const value = isEditing ? editedForm?.[field] : selectedForm?.[field];
+
 
         if (isEditing) {
             return (
@@ -345,7 +348,7 @@ export default function GetFormTwo() {
                             overflow: "hidden",
                             border: "1px solid",
                         }}
-                        className="border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                        className="border-gray-200  dark:border-gray-700 dark:bg-gray-800 dark:text-white"
                     >
                         <Table size="small">
                             <TableHead>
@@ -415,7 +418,7 @@ export default function GetFormTwo() {
                                                         borderRadius: 2,
                                                         px: 1.5,
                                                     }}
-                                                    className="border-gray-300 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                                                    className="border-gray-300 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500 hover:bg-gray-500 dark:hover:bg-gray-700/50"
                                                 >
                                                     View
                                                 </Button>

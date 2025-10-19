@@ -8,23 +8,23 @@ import AuthButton from "../logic/LogInInfo.jsx";
 export function HeaderBar() {
     return (
         <header className="sticky top-0 z-50 w-full backdrop-blur-sm bg-white/80 dark:bg-gray-950/80 border-b border-gray-200/50 dark:border-gray-800/50 shadow-sm">
-            <div className="flex items-center justify-between px-6 py-3.5 max-w-screen-2xl mx-auto">
+            <div className="flex items-center justify-between px-6 py-2 max-w-screen-2xl mx-auto">
                 {/* Logo and Brand Section */}
                 <NavLink
                     to="/"
-                    className="flex items-center gap-3 group transition-all hover:opacity-80"
+                    className="flex items-center gap-2.5 group transition-all hover:opacity-80"
                 >
-                    <div className="p-2 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 shadow-md group-hover:shadow-lg transition-shadow">
+                    <div className="p-1.5 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 shadow-md group-hover:shadow-lg transition-shadow">
                         <DocumentScannerIcon
                             sx={{
                                 display: { xs: 'none', md: 'flex' },
-                                fontSize: 28
+                                fontSize: 24
                             }}
                             className="text-white"
                         />
                     </div>
                     <Typography
-                        variant="h5"
+                        variant="h6"
                         noWrap
                         sx={{
                             display: { xs: 'none', md: 'flex' },
@@ -44,7 +44,7 @@ export function HeaderBar() {
 
                 {/* Actions Section */}
                 <div className="flex items-center gap-3">
-                    <div className="h-8 w-px bg-gray-300 dark:bg-gray-700 hidden sm:block" />
+                    <div className="h-6 w-px bg-gray-300 dark:bg-gray-700 hidden sm:block" />
 
                     <ThemeToggle />
 
