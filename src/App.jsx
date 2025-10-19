@@ -152,7 +152,7 @@ const App = () => {
             <Box className="min-h-screen grid place-items-center bg-gray-200 dark:bg-gray-900">
                 <div className="grid grid-cols-1 lg:grid-cols-[1fr_3fr] w-full max-w-7xl gap-4">
 
-                    {/* LEFT COLUMN */}
+
                     <Box
                         sx={{ justifyContent: "flex-end", alignItems: "flex-start", p: 1 }}
                         className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm p-4"
@@ -207,7 +207,7 @@ const App = () => {
                         </div>
                     </Box>
 
-                    {/* RIGHT COLUMN */}
+
                     <Box
                         sx={{ display: "flex", justifyContent: "center", alignItems: "stretch", p: 1 }}
                         className="rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm bg-white dark:bg-gray-800"

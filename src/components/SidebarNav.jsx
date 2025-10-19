@@ -10,6 +10,7 @@ const navItems = [
     { to: "/about", label: "About", icon: Info },
     { to: "/contact", label: "Contact", icon: Phone },
     { to: "/settings", label: "Settings", icon: Settings},
+    { to: "/TechPresentation", label: "Project Presentation", icon: Settings},
 ];
 
 export default function SidebarNav() {

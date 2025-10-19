@@ -15,6 +15,7 @@ import SettingsPage from "./pages/SettingsPage.jsx";
 import { AuthProvider } from "./providers/AuthServiceProvider.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import ErrorBoundary from "./components/ErrorBoundary.jsx";
+import TechPresentationPage from "./pages/TechPresentationPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
             { path: "profile", Component: ProfilePage },
             { path: "signup", Component: SignupPage },
             { path: "settings", Component: SettingsPage },
+            { path: "TechPresentation", Component: TechPresentationPage },
         ],
     },
 ]);

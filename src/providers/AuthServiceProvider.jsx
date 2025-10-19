@@ -111,7 +111,7 @@ export function AuthProvider({ children }) {
             user,
             login,
             logout,
-            updateUser  // Add this for SettingsPage
+            updateUser
         }}>
             {children}
         </AuthContext.Provider>
